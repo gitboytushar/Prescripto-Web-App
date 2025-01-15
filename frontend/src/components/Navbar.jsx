@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { LogOut } from 'lucide-react'
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -48,7 +49,7 @@ const Navbar = () => {
               alt='caret down icon'
             />
             <div className='absolute top-0 right-0 pt-12 text-base font-medium text-gray-500 z-20 hidden group-hover:block motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-opacity-in-[0%] motion-duration-[0.45s] motion-ease-out-cubic'>
-              <div className='min-w-48 bg-gray-100 rounded flex flex-col gap-1 p-2'>
+              <div className='min-w-48 bg-gray-100 rounded text-sm font-normal flex flex-col gap-1 p-2'>
                 <p
                   onClick={() => navigate('my-profile')}
                   className='px-2 py-1.5 rounded hover:text-black hover:bg-black/5 transition-colors duration-150 ease-linear cursor-pointer'
@@ -63,9 +64,10 @@ const Navbar = () => {
                 </p>
                 <p
                   onClick={() => setToken(false)}
-                  className='px-2 py-1.5 rounded hover:text-red-500 hover:bg-black/5 transition-colors duration-150 ease-linear cursor-pointer'
+                  className='px-2 py-1.5 rounded hover:text-red-500 hover:bg-black/5 transition-colors duration-150 ease-linear cursor-pointer w-full flex items-center justify-start gap-2'
                 >
-                  Logout
+                  <span>Logout</span>
+                  <LogOut size={13} />
                 </p>
               </div>
             </div>

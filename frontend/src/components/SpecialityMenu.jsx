@@ -9,7 +9,7 @@ const SpecialityMenu = () => {
       id='speciality'
     >
       <h1 className='text-3xl font-medium'>Find by Speciality</h1>
-      <p className='sm:w-1/3 text-center text-sm'>
+      <p className='sm:w-1/3 text-center text-sm md:text-base'>
         Simply browse through our extensive list of trusted doctors, schedule
         your appointment hassle-free.
       </p>
@@ -17,7 +17,7 @@ const SpecialityMenu = () => {
         {specialityData.map((item, index) => (
           <Link
             onClick={() => scrollTo(0, 0)}
-            className='flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-300 ease-in-out'
+            className='flex flex-col items-center text-xs md:text-sm cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-300 ease-in-out'
             key={index}
             to={`/doctors/${item.speciality}`}
           >
