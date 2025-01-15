@@ -1,10 +1,11 @@
-import React from 'react'
-import { doctors } from '../assets/assets'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AppContext } from '../context/AppContext'
 
 const TopDoctors = () => {
   const navigate = useNavigate()
+  // useContext hook in react gets the value through props from the parent component
+  const { doctors } = useContext(AppContext)
 
   return (
     <div className='flex flex-col items-center gap-4 my-16 text-gray-900 md:mx-10'>
@@ -35,7 +36,13 @@ const TopDoctors = () => {
           </div>
         ))}
       </div>
-      <button className='bg-blue-50 text-gray-700 hover:bg-blue-100 transition-colors duration-300 ease-in px-12 py-3 rounded-full mt-10'>
+      <button
+        onClick={() => {
+          navigate('/doctors')
+          scrollTo(0, 0)
+        }}
+        className='bg-blue-50 text-gray-700 px-12 py-3 rounded-full mt-10'
+      >
         <span>More</span>
       </button>
     </div>
