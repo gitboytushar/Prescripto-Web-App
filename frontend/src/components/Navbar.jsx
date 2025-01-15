@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className='flex items-center gap-4'>
         {token ? (
           <div
-            className='flex items-center gap-2 cursor-pointer group relative mx-12 p-1.5 rounded-full hover:bg-gray-100'
+            className='flex items-center gap-2 cursor-pointer group relative lg:mx-12 p-1.5 rounded-full hover:bg-gray-100'
             onClick={() => setShowMenu(!showMenu)}
           >
             <img
@@ -47,23 +47,23 @@ const Navbar = () => {
               src={assets.dropdown_icon}
               alt='caret down icon'
             />
-            <div className='absolute top-0 right-0 pt-16 text-base font-medium text-gray-500 z-20 hidden group-hover:block'>
-              <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4'>
+            <div className='absolute top-0 right-0 pt-12 text-base font-medium text-gray-500 z-20 hidden group-hover:block motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-opacity-in-[0%] motion-duration-[0.45s] motion-ease-out-cubic'>
+              <div className='min-w-48 bg-gray-100 rounded flex flex-col gap-1 p-2'>
                 <p
                   onClick={() => navigate('my-profile')}
-                  className='hover:text-black cursor-pointer'
+                  className='px-2 py-1.5 rounded hover:text-black hover:bg-black/5 transition-colors duration-150 ease-linear cursor-pointer'
                 >
                   My Profile
                 </p>
                 <p
                   onClick={() => navigate('my-appointments')}
-                  className='hover:text-black cursor-pointer'
+                  className='px-2 py-1.5 rounded hover:text-black hover:bg-black/5 transition-colors duration-150 ease-linear cursor-pointer'
                 >
                   My Appointments
                 </p>
                 <p
                   onClick={() => setToken(false)}
-                  className='hover:text-black cursor-pointer'
+                  className='px-2 py-1.5 rounded hover:text-red-500 hover:bg-black/5 transition-colors duration-150 ease-linear cursor-pointer'
                 >
                   Logout
                 </p>
