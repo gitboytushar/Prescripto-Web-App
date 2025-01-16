@@ -10,11 +10,13 @@ import MyAppointments from './pages/myAppointments'
 import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ScrollToTopFloatingButton from './components/ScrollToTopFloatingButton'
 
 const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
       <Navbar />
+      <ScrollToTopFloatingButton />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/doctors' element={<Doctors />} />
