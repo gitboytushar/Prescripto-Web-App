@@ -14,7 +14,7 @@ const Footer = () => {
           <img
             className='mb-5 w-40 pointer-events-none'
             src={assets.logo}
-            alt=''
+            alt='app logo'
           />
           <p className='w-full md:w-2/3 text-gray-600 leading-6'>
             Welcome to Prescripto, your trusted partner in healthcare. We are
@@ -32,7 +32,7 @@ const Footer = () => {
                 navigate('/')
                 scrollTo(0, 0)
               }}
-              className='cursor-pointer hover:text-primary transition-colors duration-200 ease-in'
+              className='cursor-pointer hover:text-primary hover:underline transition-all duration-200 ease-in'
             >
               Home
             </li>
@@ -41,7 +41,7 @@ const Footer = () => {
                 navigate('/about')
                 scrollTo(0, 0)
               }}
-              className='cursor-pointer hover:text-primary transition-colors duration-200 ease-in'
+              className='cursor-pointer hover:text-primary hover:underline transition-all duration-200 ease-in'
             >
               About Us
             </li>
@@ -50,7 +50,7 @@ const Footer = () => {
                 navigate('/contact')
                 scrollTo(0, 0)
               }}
-              className='cursor-pointer hover:text-primary transition-colors duration-200 ease-in'
+              className='cursor-pointer hover:text-primary hover:underline transition-all duration-200 ease-in'
             >
               Contact Us
             </li>
@@ -62,7 +62,12 @@ const Footer = () => {
           <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
             <li>+1-212-456-7890</li>
-            <li>tusharwork.001@gmail.com</li>
+            <a
+              href='mailto:tusharwork.001@gmail.com'
+              className='cursor-pointer hover:text-primary hover:underline transition-all duration-200 ease-in'
+            >
+              tusharwork.001@gmail.com
+            </a>
           </ul>
         </div>
       </div>
@@ -70,7 +75,7 @@ const Footer = () => {
       {/* -------- copyright text -------- */}
       <div>
         <hr />
-        <p className='flex items-center justify-center gap-1 py-5 text-sm text-center'>
+        <p className='flex items-center md:justify-center gap-1 py-5 text-sm text-center text-gray-500'>
           <Copyright size={14} />
           <span>Prescripto 2025 - All Rights Reserved.</span>
         </p>

@@ -142,7 +142,7 @@ const Appointment = () => {
             <span>Book from available slots</span>
             <CalendarArrowDown size={20} className='-translate-y-[1.2px]' />
           </p>
-          <hr className='mt-1' />
+          <hr className='mt-2' />
           {/* days and data */}
           <div className='flex flex-col md:flex-row items-start md:items-center justify-start gap-2 md:gap-4 mt-4'>
             <p className='text-sm text-gray-500 font-normal md:pr-4'>
@@ -204,7 +204,7 @@ const Appointment = () => {
           </button>
         </div>
 
-        <hr className='mt-10' />
+        <hr className='mt-10 md:ml-10' />
 
         {/* Listing related doctors */}
         <RelatedDoctor docId={docId} speciality={docInfo.speciality} />
