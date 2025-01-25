@@ -18,7 +18,7 @@ const Banner = () => {
             navigate('/login')
             scrollTo(0, 0)
           }}
-          className='bg-white text-sm sm:text-base font-medium text-gray-600 px-8 py-3 rounded-full mt-6 hover:scale-[102%] transition-all duration-200'
+          className='bg-white text-sm sm:text-base font-medium text-gray-600 px-8 py-3 rounded-md mt-6 hover:scale-[102%] transition-all duration-200'
         >
           Create Account
         </button>
