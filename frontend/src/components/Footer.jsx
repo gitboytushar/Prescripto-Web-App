@@ -76,7 +76,7 @@ const Footer = () => {
       <div>
         <hr />
         <p className='flex items-center md:justify-center gap-1 py-5 text-sm text-center text-gray-500'>
-          <Copyright size={14} />
+          <Copyright size={14} className='-translate-y-[0.75px]' />
           <span>Prescripto 2025 - All Rights Reserved.</span>
         </p>
       </div>
