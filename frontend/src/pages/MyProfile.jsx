@@ -52,7 +52,7 @@ const MyProfile = () => {
             <p className='p-1 font-medium min-w-fit text-zinc-400'>
               CONTACT INFO
             </p>
-            <div className='flex flex-col items-stretch gap-1 text-sm md:text-base'>
+            <div className='flex flex-col items-stretch gap-1 text-[16px] md:text-base'>
               <div className='flex items-center gap-2 p-1'>
                 <p className='font-medium min-w-fit'>Email Id:</p>
                 <p className='px-1 py-0 w-full'>{userData.email}</p>
@@ -123,7 +123,7 @@ const MyProfile = () => {
             <p className='p-1 font-medium min-w-fit text-zinc-400'>
               PERSONAL DETAILS
             </p>
-            <div className='flex flex-col items-stretch gap-1 text-sm md:text-base'>
+            <div className='flex flex-col items-stretch gap-1 text-[16px] md:text-base'>
               <div className='flex items-center gap-2 p-1'>
                 <p className='font-medium min-w-fit'>Gender:</p>
                 <div className='w-full'>
@@ -175,7 +175,7 @@ const MyProfile = () => {
         {isEdit ? (
           <button
             onClick={() => setIsEdit(false)}
-            className='flex text-sm items-center font-medium min-w-fit gap-2 w-fit bg-primary text-white py-2.5 px-4 rounded'
+            className='flex text-sm items-center font-medium min-w-fit gap-2 w-fit bg-primary text-white py-2.5 px-4 rounded hover:scale-[97%] transition-all duration-200 ease-linear'
           >
             Save Changes
             <span>
@@ -185,7 +185,7 @@ const MyProfile = () => {
         ) : (
           <button
             onClick={() => setIsEdit(true)}
-            className='flex text-sm items-center font-medium min-w-fit gap-2 w-fit bg-primary text-white py-2.5 px-4 rounded'
+            className='flex text-sm items-center font-medium min-w-fit gap-2 w-fit bg-primary text-white py-2.5 px-4 rounded hover:scale-[97%] transition-all duration-200 ease-linear'
           >
             Edit
             <span>

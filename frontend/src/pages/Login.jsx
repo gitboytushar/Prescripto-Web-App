@@ -33,7 +33,7 @@ const Login = () => {
               <div className='w-full'>
                 <p>Full Name</p>
                 <input
-                  className='border border-zinc-300 rounded w-full p-2 mt-1'
+                  className='border border-zinc-300 rounded w-full p-2 mt-1 text-base'
                   type='text'
                   onChange={e => setName(e.target.name)}
                   value={name}
@@ -44,9 +44,9 @@ const Login = () => {
             <div className='w-full'>
               <p>Email</p>
               <input
-                className='border border-zinc-300 rounded w-full p-2 mt-1'
+                className='border border-zinc-300 rounded w-full p-2 mt-1 text-base'
                 type='email'
-                onChange={e => setName(e.target.name)}
+                onChange={e => setEmail(e.target.value)}
                 value={email}
                 required
               />
@@ -54,9 +54,9 @@ const Login = () => {
             <div className='w-full'>
               <p>{state === 'Sign Up' ? 'Create Password' : 'Password'}</p>
               <input
-                className='border border-zinc-300 rounded w-full p-2 mt-1'
+                className='border border-zinc-300 rounded w-full p-2 mt-1 text-base'
                 type='password'
-                onChange={e => setName(e.target.name)}
+                onChange={e => setPassword(e.target.value)}
                 value={password}
                 required
               />
