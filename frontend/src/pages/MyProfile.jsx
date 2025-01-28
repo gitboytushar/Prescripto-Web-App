@@ -46,19 +46,21 @@ const MyProfile = () => {
         </div>
 
         {/* user data */}
-        <div className='flex-1 flex flex-col gap-3 items-stretch w-full px-5 md:px-0'>
+        <div className='flex-1 flex flex-col gap-2 md:gap-4 items-stretch w-full px-5 md:px-0'>
           {/* contact info */}
           <div className='flex flex-col items-stretch gap-2'>
             <p className='p-1 font-medium min-w-fit text-zinc-400'>
               CONTACT INFO
             </p>
-            <div className='flex flex-col items-stretch gap-1 text-[16px] md:text-base'>
+            <div className='flex flex-col items-stretch gap-1 text-sm md:text-base'>
               <div className='flex items-center gap-2 p-1'>
                 <p className='font-medium min-w-fit'>Email Id:</p>
-                <p className='px-1 py-0 w-full'>{userData.email}</p>
+                <p className='px-1 py-0 w-full overflow-x-scroll'>
+                  {userData.email}
+                </p>
               </div>
 
-              <div className='flex items-center gap-2 p-1'>
+              <div className='flex items-center gap-2 p-1 text-sm md:text-base'>
                 <p className='font-medium min-w-fit'>Phone:</p>
                 {isEdit ? (
                   <input
@@ -74,7 +76,7 @@ const MyProfile = () => {
                 )}
               </div>
 
-              <div className='flex items-baseline gap-2 p-1'>
+              <div className='flex items-baseline gap-2 p-1 text-sm md:text-base'>
                 <p className='font-medium min-w-fit'>Address:</p>
                 {isEdit ? (
                   <p className='w-full'>
@@ -106,7 +108,7 @@ const MyProfile = () => {
                     />
                   </p>
                 ) : (
-                  <p className='px-1 py-0 w-full'>
+                  <p className='px-1 py-0 w-full overflow-x-scroll'>
                     {userData.address.line1}
                     <br />
                     {userData.address.line2}
@@ -124,7 +126,7 @@ const MyProfile = () => {
               PERSONAL DETAILS
             </p>
             <div className='flex flex-col items-stretch gap-1 text-[16px] md:text-base'>
-              <div className='flex items-center gap-2 p-1'>
+              <div className='flex items-center gap-2 p-1 text-sm md:text-base'>
                 <p className='font-medium min-w-fit'>Gender:</p>
                 <div className='w-full'>
                   {isEdit ? (
@@ -148,7 +150,7 @@ const MyProfile = () => {
                 </div>
               </div>
 
-              <div className='flex items-center gap-2 p-1'>
+              <div className='flex items-center gap-2 p-1 text-sm md:text-base'>
                 <p className='font-medium min-w-fit'>Birthday:</p>
                 <div className='w-full'>
                   {isEdit ? (
