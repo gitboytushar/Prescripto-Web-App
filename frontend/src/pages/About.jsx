@@ -55,21 +55,21 @@ const About = () => {
       </div>
 
       <div className='flex flex-col md:flex-row gap-4 md:gap-2 p-0 md:p-10'>
-        <div className='flex flex-col gap-3 md:gap-4 px-7 py-8 md:p-12 bg-gray-100 rounded hover:bg-primary hover:text-white hover:motion-preset-seesaw transition-all duration-150 ease-linear'>
+        <div className='flex flex-col gap-3 md:gap-4 px-7 py-8 md:p-12 bg-gray-100 rounded hover:bg-primary hover:text-white md:hover:motion-preset-seesaw transition-all duration-150 ease-linear'>
           <b className='tracking-wide'>Efficiency:</b>
           <p>
             Streamlined appointment scheduling that fits into your busy
             lifestyle.
           </p>
         </div>
-        <div className='flex flex-col gap-3 md:gap-4 px-7 py-8 md:p-12 bg-gray-100 rounded hover:bg-primary hover:text-white hover:motion-preset-seesaw transition-all duration-150 ease-linear'>
+        <div className='flex flex-col gap-3 md:gap-4 px-7 py-8 md:p-12 bg-gray-100 rounded hover:bg-primary hover:text-white md:hover:motion-preset-seesaw transition-all duration-150 ease-linear'>
           <b className='tracking-wide'>Convenience:</b>
           <p>
             Access to a network of trusted healthcare professionals in your
             area.
           </p>
         </div>
-        <div className='flex flex-col gap-3 md:gap-4 px-7 py-8 md:p-12 bg-gray-100 rounded hover:bg-primary hover:text-white hover:motion-preset-seesaw transition-all duration-150 ease-linear'>
+        <div className='flex flex-col gap-3 md:gap-4 px-7 py-8 md:p-12 bg-gray-100 rounded hover:bg-primary hover:text-white md:hover:motion-preset-seesaw transition-all duration-150 ease-linear'>
           <b className='tracking-wide'>Personalization:</b>
           <p>
             Tailored recommendations and reminders, To help you stay on top of
