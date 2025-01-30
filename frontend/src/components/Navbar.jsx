@@ -6,8 +6,47 @@ import { ArrowRight, Menu, X } from 'lucide-react'
 const Navbar = () => {
   const navigate = useNavigate()
 
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenu, setShowMenu] = useState(false) // For mobile menu
+  const [showProfileMenu, setShowProfileMenu] = useState(false) // For profile dropdown
   const [token, setToken] = useState(true)
+
+  // Handle click outside for profile menu
+  React.useEffect(() => {
+    const handleProfileClickOutside = event => {
+      if (event.target.closest('.profile-menu-container') === null) {
+        setShowProfileMenu(false)
+      }
+    }
+
+    if (showProfileMenu) {
+      document.addEventListener('mousedown', handleProfileClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleProfileClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleProfileClickOutside)
+    }
+  }, [showProfileMenu])
+
+  // handle click outside the page-nav menu
+  const handleClickOutside = event => {
+    if (event.target.closest('.menu-container') === null) {
+      setShowMenu(false)
+    }
+  }
+
+  React.useEffect(() => {
+    if (showMenu) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [showMenu])
 
   return (
     <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-300'>
@@ -37,79 +76,103 @@ const Navbar = () => {
         </NavLink>
       </ul>
 
-      <div className='flex items-center gap-2'>
-        {token ? (
-          <div
-            className='flex items-center gap-2 cursor-pointer group relative lg:mx-12 p-1.5'
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            <img
-              className='w-8 rounded-full'
-              src={assets.profile_pic}
-              alt='profile pic'
-            />
-            <img
-              className='w-2.5'
-              src={assets.dropdown_icon}
-              alt='caret down icon'
-            />
-            <div className='absolute top-0 right-0 pt-12 text-base font-medium text-black z-20 hidden group-hover:block motion-translate-x-in-[0%] motion-translate-y-in-[-5%] motion-duration-[0.3s] motion-ease-linear'>
-              <div className='min-w-48 bg-gray-100 rounded text-[15px] font-normal flex flex-col gap-1 p-2'>
-                <p
-                  onClick={() => navigate('my-profile')}
-                  className='px-2 py-1 rounded hover:bg-black/5 transition-colors duration-200 ease-in cursor-pointer'
-                >
-                  My Profile
-                </p>
-                <p
-                  onClick={() => navigate('my-appointments')}
-                  className='px-2 py-1 rounded hover:bg-black/5 transition-colors duration-200 ease-in cursor-pointer'
-                >
-                  My Appointments
-                </p>
-                <hr className='my-[1px] mx-2 rounded-full' />
-                <p
-                  onClick={() => setToken(false)}
-                  className='px-2 py-1 rounded hover:text-red-500 hover:bg-black/5 transition-colors duration-100 ease-in cursor-pointer w-full flex items-center justify-start gap-1'
-                >
-                  <span>Logout</span>
-                  <ArrowRight size={15} />
-                </p>
+      <div className='flex items-center gap-3'>
+        {/* ------- profile menu --------- */}
+        <div className='flex items-center gap-2'>
+          {token ? (
+            <div
+              className='flex items-center gap-2 cursor-pointer group relative lg:mx-12 p-1.5 select-none profile-menu-container'
+              onClick={() => setShowProfileMenu(!showProfileMenu)}
+            >
+              <img
+                className='w-8 rounded-full'
+                src={assets.profile_pic}
+                alt='profile pic'
+              />
+              <img
+                className='w-2.5'
+                src={assets.dropdown_icon}
+                alt='caret down icon'
+              />
+              <div
+                className={`absolute top-0 right-0 pt-12 text-base font-medium text-black z-20 ${
+                  showProfileMenu ? 'block' : 'hidden'
+                } group-active:block motion-translate-x-in-[0%] motion-translate-y-in-[-5%] motion-duration-[0.3s] motion-ease-linear`}
+              >
+                <div className='min-w-48 bg-gray-100 rounded text-[15px] font-normal flex flex-col gap-1 p-2'>
+                  <p
+                    onClick={() => navigate('my-profile')}
+                    className='px-2 py-1 rounded hover:bg-black/5 transition-colors duration-200 ease-in cursor-pointer'
+                  >
+                    My Profile
+                  </p>
+                  <p
+                    onClick={() => navigate('my-appointments')}
+                    className='px-2 py-1 rounded hover:bg-black/5 transition-colors duration-200 ease-in cursor-pointer'
+                  >
+                    My Appointments
+                  </p>
+                  <hr className='my-[1px] mx-2 rounded-full' />
+                  <p
+                    onClick={() => setToken(false)}
+                    className='px-2 py-1 rounded hover:text-red-500 hover:bg-black/5 transition-colors duration-100 ease-in cursor-pointer w-full flex items-center justify-start gap-1'
+                  >
+                    <span>Logout</span>
+                    <ArrowRight size={15} />
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <button
-            onClick={() => navigate('/login')}
-            className='bg-primary text-white px-8 py-3 rounded-md font-normal hidden md:block'
-          >
-            Create Account
-          </button>
-        )}
-        <Menu
-          onClick={() => setShowMenu(true)}
-          size={25}
-          className='md:hidden text-primary'
-        />
-        {/* mobile menu */}
-        <div
-          className={`${
-            showMenu
-              ? 'fixed w-fit h-fit pb-4 pl-12 pr-4 rounded-bl-md flex motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.45s] motion-ease-spring-bouncy'
-              : 'h-0 w-0 hidden'
-          } right-0 top-0 z-20 overflow-hidden bg-white/60 backdrop-blur-xl flex-col items-end justify-start pt-5 px-2 shadow-2xl`}
-        >
-          <X
+          ) : (
+            <button
+              onClick={() => navigate('/login')}
+              className='bg-primary text-white px-8 py-3 rounded-md font-normal hidden md:block'
+            >
+              Create Account
+            </button>
+          )}
+        </div>
+        {/* --------- mobile menu -------- */}
+        <div>
+          {/* bar icon */}
+          <Menu
+            onClick={() => setShowMenu(true)}
             size={25}
-            onClick={() => setShowMenu(false)}
-            className='mt-1.5 text-primary'
+            className='md:hidden text-primary'
           />
-          <ul className='uppercase flex flex-col items-end gap-4 mt-5 text-base font-medium min-w-fit'>
-            <NavLink className='min-w-fit'>Home</NavLink>
-            <NavLink className='min-w-fit'>All Doctors</NavLink>
-            <NavLink className='min-w-fit'>About</NavLink>
-            <NavLink className='min-w-fit'>Contact</NavLink>
-          </ul>
+          {/* menu */}
+          <div
+            className={`menu-container ${
+              showMenu
+                ? 'fixed w-fit h-fit pb-4 pl-12 pr-4 rounded-bl-md flex motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.53s] motion-ease-spring-snappy'
+                : 'h-0 w-0 hidden'
+            } right-0 top-0 z-20 overflow-hidden bg-white/60 backdrop-blur-xl flex-col items-end justify-start pt-5 px-2 shadow-md`}
+          >
+            {/* close icon */}
+            <X
+              size={25}
+              onClick={() => setShowMenu(false)}
+              className='mt-1.5 text-primary'
+            />
+            <ul className='mt-12 uppercase flex flex-col items-end gap-5 text-base font-medium min-w-fit select-none'>
+              <NavLink onClick={() => setShowMenu(false)} to={'/'}>
+                <p>Home</p>
+                <hr className='border-none outline-none h-0.5 bg-primary w-full rounded-full m-auto hidden' />
+              </NavLink>
+              <NavLink onClick={() => setShowMenu(false)} to={'/doctors'}>
+                <p>All Doctors</p>
+                <hr className='border-none outline-none h-0.5 bg-primary w-full rounded-full m-auto hidden' />
+              </NavLink>
+              <NavLink onClick={() => setShowMenu(false)} to={'/about'}>
+                <p>About</p>
+                <hr className='border-none outline-none h-0.5 bg-primary w-full rounded-full m-auto hidden' />
+              </NavLink>
+              <NavLink onClick={() => setShowMenu(false)} to={'/contact'}>
+                <p>Contact</p>
+                <hr className='border-none outline-none h-0.5 bg-primary w-full rounded-full m-auto hidden' />
+              </NavLink>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
