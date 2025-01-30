@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Menu, X } from 'lucide-react'
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-300'>
       <img
         onClick={() => navigate('/')}
-        className='w-44 cursor-pointer'
+        className='w-36 md:w-44 cursor-pointer'
         src={assets.logo}
         alt=''
       />
@@ -37,7 +37,7 @@ const Navbar = () => {
         </NavLink>
       </ul>
 
-      <div className='flex items-center gap-4'>
+      <div className='flex items-center gap-2'>
         {token ? (
           <div
             className='flex items-center gap-2 cursor-pointer group relative lg:mx-12 p-1.5'
@@ -86,6 +86,31 @@ const Navbar = () => {
             Create Account
           </button>
         )}
+        <Menu
+          onClick={() => setShowMenu(true)}
+          size={25}
+          className='md:hidden text-primary'
+        />
+        {/* mobile menu */}
+        <div
+          className={`${
+            showMenu
+              ? 'fixed w-fit h-fit pb-4 pl-12 pr-4 rounded-bl-md flex motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.45s] motion-ease-spring-bouncy'
+              : 'h-0 w-0 hidden'
+          } right-0 top-0 z-20 overflow-hidden bg-white/60 backdrop-blur-xl flex-col items-end justify-start pt-5 px-2 shadow-2xl`}
+        >
+          <X
+            size={25}
+            onClick={() => setShowMenu(false)}
+            className='mt-1.5 text-primary'
+          />
+          <ul className='uppercase flex flex-col items-end gap-4 mt-5 text-base font-medium min-w-fit'>
+            <NavLink className='min-w-fit'>Home</NavLink>
+            <NavLink className='min-w-fit'>All Doctors</NavLink>
+            <NavLink className='min-w-fit'>About</NavLink>
+            <NavLink className='min-w-fit'>Contact</NavLink>
+          </ul>
+        </div>
       </div>
     </div>
   )

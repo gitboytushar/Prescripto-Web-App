@@ -10,10 +10,10 @@ const SpecialityMenu = () => {
     >
       <h1 className='text-3xl font-medium'>Find by Speciality</h1>
       <p className='sm:w-1/3 text-center text-sm md:text-base'>
-        Browse through our list of trusted doctors and schedule your required
+        Scroll through our list of trusted doctors and schedule your required
         appointment quickly.
       </p>
-      <div className='flex sm:justify-center gap-4 lg:gap-10 pt-5 w-full overflow-scroll'>
+      <div className='flex sm:justify-center gap-4 lg:gap-10 pt-5 w-full overscroll-y-none overflow-x-scroll'>
         {specialityData.map((item, index) => (
           <Link
             onClick={() => window.scrollTo(0, 0)}

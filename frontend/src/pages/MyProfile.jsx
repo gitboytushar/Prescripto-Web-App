@@ -7,7 +7,7 @@ const MyProfile = () => {
     name: 'edward vincent',
     image: assets.profile_pic,
     email: 'edwardvincent007@gmail.com',
-    phone: '+91 9872310461',
+    phone: '9872310461',
     address: {
       line1: '57th cross, Richmond ',
       line2: 'Circle, Church Road, London'
@@ -67,12 +67,16 @@ const MyProfile = () => {
                     className='px-1 py-0 w-full'
                     type='text'
                     value={userData.phone}
-                    onChange={e =>
-                      setUserData(prev => ({ ...prev, phone: e.target.value }))
-                    }
+                    onChange={e => {
+                      const value = e.target.value
+                      if (/^\d*$/.test(value) && value.length <= 10) {
+                        setUserData(prev => ({ ...prev, phone: value }))
+                      }
+                    }}
+                    maxLength='10'
                   />
                 ) : (
-                  <p className='px-1 py-0 w-full'>{userData.phone}</p>
+                  <p className='px-1 py-0 w-full'>{`+91 ${userData.phone}`}</p>
                 )}
               </div>
 

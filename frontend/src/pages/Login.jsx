@@ -13,12 +13,12 @@ const Login = () => {
 
   return (
     <div className='motion-preset-expand'>
-      <form className='min-h-[80vh] flex items-center'>
+      <form className='min-h-[60vh] flex items-center'>
         <div className='flex flex-col gap-6 m-auto items-start p-5 md:p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg'>
           {/* form title */}
           <div className='flex flex-col items-stretch gap-1 w-full text-center'>
             <p className='text-2xl font-semibold'>
-              {state === 'Sign Up' ? 'Create Account' : 'Login'}
+              {state === 'Sign Up' ? 'New Registration' : 'User Login'}
             </p>
             <p className='text-zinc-500'>
               Please {state === 'Sign Up' ? 'sign up' : 'log in'} to book an
@@ -65,7 +65,7 @@ const Login = () => {
 
           <div className='flex flex-col gap-4 w-full items-stretch text-center'>
             <button className='bg-primary text-white w-full py-2 rounded-md text-base'>
-              {state === 'Sign Up' ? 'Create Account' : 'Login'}
+              {state === 'Sign Up' ? 'Create Account' : 'Confirm'}
             </button>
             {/* button to switch between signup and login forms */}
             {state === 'Sign Up' ? (

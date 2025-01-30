@@ -116,11 +116,7 @@ const Appointment = () => {
             <div>
               <p className='flex items-center gap-1.5 text-sm font-medium text-gray-900 mt-3 '>
                 About
-                <img
-                  className='w-3 -translate-y-[.6px]'
-                  src={assets.info_icon}
-                  alt=''
-                />
+                <img className='w-3' src={assets.info_icon} alt='' />
               </p>
               <p className='text-sm text-gray-500 max-w-[750px] mt-1'>
                 {docInfo.about}
@@ -194,17 +190,17 @@ const Appointment = () => {
           <button
             className={`flex items-center justify-center gap-2 mt-5 rounded-lg px-5 py-3.5 text-[14px] font-normal tracking-wide ${
               slotTime
-                ? 'bg-primary text-white cursor-pointer'
+                ? 'bg-primary text-white cursor-pointer active:scale-[96%] transition-all duration-100 ease-in'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             disabled={!slotTime}
           >
-            <span>Confirm Booking</span>
+            <span className='select-none'>Confirm Booking</span>
             <Check size={18} />
           </button>
         </div>
 
-        <hr className='mt-10 md:ml-10' />
+        <hr className='mt-10 md:ml-10 select-none' />
 
         {/* Listing related doctors */}
         <RelatedDoctor docId={docId} speciality={docInfo.speciality} />
