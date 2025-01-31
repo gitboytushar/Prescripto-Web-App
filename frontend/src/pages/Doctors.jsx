@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
+import { ChevronDown } from 'lucide-react'
 
 const Doctors = () => {
   const { speciality } = useParams()
   const [filterDoc, setFilterDoc] = useState([])
+  const [showFilter, setShowFilter] = useState(false)
   const navigate = useNavigate()
 
   const { doctors } = useContext(AppContext)
@@ -27,18 +29,38 @@ const Doctors = () => {
       <p className='text-gray-500'>
         Find and book appointments with doctors based on their specialities.
       </p>
-      <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
-        <div className='flex flex-col gap-2 text-sm text-gray-800'>
+      <div className='flex flex-col sm:flex-row items-start gap-3 sm:gap-5 mt-5'>
+        <button
+          className={`py-2 px-3 flex items-center gap-1 border rounded-lg text-sm transition-all duration-300 ease-in-out sm:hidden ${
+            showFilter ? '' : 'bg-primary text-white'
+          }`}
+          onClick={() => setShowFilter(prev => !prev)}
+        >
+          Filter by speciality
+          <ChevronDown
+            size={18}
+            className={`transition-transform duration-500 ease-in-out ${
+              showFilter ? 'rotate-0' : '-rotate-90'
+            }`}
+          />
+        </button>
+        <div
+          className={`flex-col bg-gray-100 p-4 rounded-lg sm:bg-transparent sm:p-0 gap-2 text-sm text-gray-800 ${
+            showFilter
+              ? 'flex motion-translate-x-in-[0%] motion-translate-y-in-[-5%] motion-duration-[0.38s] motion-ease-spring-smooth'
+              : 'hidden sm:flex'
+          }`}
+        >
           <p
             onClick={() =>
               speciality === 'General physician'
                 ? navigate('/doctors')
                 : navigate('/doctors/General physician')
             }
-            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 md:border border-gray-300 hover:border-primary rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
+            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'General physician'
                 ? 'bg-primary border-primary text-white'
-                : ''
+                : 'bg-white'
             }`}
           >
             General physician
@@ -49,10 +71,10 @@ const Doctors = () => {
                 ? navigate('/doctors')
                 : navigate('/doctors/Gynecologist')
             }
-            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 md:border border-gray-300 hover:border-primary rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
+            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Gynecologist'
                 ? 'bg-primary border-primary text-white'
-                : ''
+                : 'bg-white'
             }`}
           >
             Gynecologist
@@ -63,10 +85,10 @@ const Doctors = () => {
                 ? navigate('/doctors')
                 : navigate('/doctors/Dermatologist')
             }
-            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 md:border border-gray-300 hover:border-primary rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
+            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Dermatologist'
                 ? 'bg-primary border-primary text-white'
-                : ''
+                : 'bg-white'
             }`}
           >
             Dermatologist
@@ -77,10 +99,10 @@ const Doctors = () => {
                 ? navigate('/doctors')
                 : navigate('/doctors/Pediatricians')
             }
-            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 md:border border-gray-300 hover:border-primary rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
+            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Pediatricians'
                 ? 'bg-primary border-primary text-white'
-                : ''
+                : 'bg-white'
             }`}
           >
             Pediatricians
@@ -91,10 +113,10 @@ const Doctors = () => {
                 ? navigate('/doctors')
                 : navigate('/doctors/Neurologist')
             }
-            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 md:border border-gray-300 hover:border-primary rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
+            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Neurologist'
                 ? 'bg-primary border-primary text-white'
-                : ''
+                : 'bg-white'
             }`}
           >
             Neurologist
@@ -105,10 +127,10 @@ const Doctors = () => {
                 ? navigate('/doctors')
                 : navigate('/doctors/Gastroenterologist')
             }
-            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 md:border border-gray-300 hover:border-primary rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
+            className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Gastroenterologist'
                 ? 'bg-primary border-primary text-white'
-                : ''
+                : 'bg-white'
             }`}
           >
             Gastroenterologist
@@ -118,7 +140,7 @@ const Doctors = () => {
           {filterDoc.map((item, index) => (
             <div
               onClick={() => navigate(`/appointment/${item._id}`)}
-              className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:scale-[102%] transition-all duration-200 ease-linear group'
+              className='border border-blue-200 rounded-md md:rounded-xl overflow-hidden cursor-pointer hover:scale-[102%] transition-all duration-200 ease-linear group'
               key={index}
             >
               <img
