@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { ArrowRight, Menu, X } from 'lucide-react'
+import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react'
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -53,6 +53,7 @@ const Navbar = () => {
       <img
         onClick={() => navigate('/')}
         className='w-36 md:w-44 cursor-pointer'
+        draggable='false'
         src={assets.logo}
         alt=''
       />
@@ -81,23 +82,26 @@ const Navbar = () => {
         <div className='flex items-center gap-2'>
           {token ? (
             <div
-              className='flex items-center gap-2 cursor-pointer group relative lg:mx-12 p-1.5 select-none profile-menu-container'
+              className='flex items-center gap-2 cursor-pointer relative lg:mx-12 p-1.5 select-none profile-menu-container'
               onClick={() => setShowProfileMenu(!showProfileMenu)}
             >
-              <img
-                className='w-8 rounded-full'
-                src={assets.profile_pic}
-                alt='profile pic'
-              />
-              <img
-                className='w-2.5'
-                src={assets.dropdown_icon}
-                alt='caret down icon'
-              />
+              <div className='flex items-center gap-1'>
+                <img
+                  className='w-8 rounded-md'
+                  src={assets.profile_pic}
+                  alt='profile pic'
+                />
+                <ChevronDown
+                  size={18}
+                  className={`text-gray-500 transition-transform duration-300 ease-in-out ${
+                    showProfileMenu ? '-rotate-180' : 'rotate-0'
+                  }`}
+                />
+              </div>
               <div
                 className={`absolute top-0 right-0 pt-12 text-base font-medium text-black z-20 ${
                   showProfileMenu ? 'block' : 'hidden'
-                } group-active:block motion-translate-x-in-[0%] motion-translate-y-in-[-5%] motion-duration-[0.3s] motion-ease-linear`}
+                } motion-translate-x-in-[0%] motion-translate-y-in-[-5%] motion-duration-[0.3s] motion-ease-linear`}
               >
                 <div className='min-w-48 bg-gray-100 rounded text-[15px] font-normal flex flex-col gap-1 p-2'>
                   <p
@@ -132,6 +136,7 @@ const Navbar = () => {
             </button>
           )}
         </div>
+
         {/* --------- mobile menu -------- */}
         <div>
           {/* bar icon */}

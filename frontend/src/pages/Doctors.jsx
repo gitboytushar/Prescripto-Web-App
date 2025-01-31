@@ -31,8 +31,8 @@ const Doctors = () => {
       </p>
       <div className='flex flex-col sm:flex-row items-start gap-3 sm:gap-5 mt-5'>
         <button
-          className={`py-2 px-3 flex items-center gap-1 border rounded-lg text-sm transition-all duration-300 ease-in-out sm:hidden ${
-            showFilter ? '' : 'bg-primary text-white'
+          className={`py-2 px-3 flex items-center gap-1 border rounded-md text-sm transition-all duration-300 ease-in-out sm:hidden ${
+            showFilter ? '' : 'bg-primary border-primary text-white'
           }`}
           onClick={() => setShowFilter(prev => !prev)}
         >
@@ -40,7 +40,7 @@ const Doctors = () => {
           <ChevronDown
             size={18}
             className={`transition-transform duration-500 ease-in-out ${
-              showFilter ? 'rotate-0' : '-rotate-90'
+              showFilter ? '-rotate-180' : 'rotate-0'
             }`}
           />
         </button>
