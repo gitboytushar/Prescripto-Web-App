@@ -1,0 +1,28 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Dependency directories
+node_modules/
+
+# Build directories
+dist/
+
+# Environment variables
+.env
+
+# Coverage directory
+coverage/
+
+# Temporary files
+tmp/
+temp/
