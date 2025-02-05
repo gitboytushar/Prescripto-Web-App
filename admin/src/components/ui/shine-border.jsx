@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils'
 export function ShineBorder ({
   borderRadius,
   borderWidth,
-  duration = 14,
+  duration,
   color,
   className,
   children

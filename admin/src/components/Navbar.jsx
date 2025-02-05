@@ -1,10 +1,19 @@
 import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
 import { AdminContext } from '../context/AdminContext'
-import { ShineBorder } from '@/components/ui/shine-border'
+import { useNavigate } from 'react-router-dom'
+import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button'
 
 const Navbar = () => {
-  const { aToken } = useContext(AdminContext)
+  const { aToken, setAtoken } = useContext(AdminContext)
+  const navigate = useNavigate()
+
+  const logout = () => {
+    navigate('/')
+    aToken && setAtoken('')
+    aToken && localStorage.removeItem('aToken')
+  }
+
   return (
     <div className='flex justify-between items-end sm:items-center px-4 sm:px-10 py-3 border-b bg-gray-50 select-none'>
       <img
@@ -14,26 +23,23 @@ const Navbar = () => {
         draggable='false'
       />
       <div className='flex items-center gap-2 sm:text-base text-xs px-2'>
-        <ShineBorder
-          color={['#A07CFE', '#FE8FB5', '#FFBE7B']}
-          borderWidth={1.5}
-          borderRadius={5}
+        <div className='py-1.5 px-2 sm:px-3 rounded-[5px]'>
+          {aToken ? (
+            <p>
+              <b>Admin</b> <span className='hidden sm:inline'>Account</span>
+            </p>
+          ) : (
+            <p>
+              <b>Doctor</b> <span className='hidden sm:inline'>Account</span>
+            </p>
+          )}
+        </div>
+        <InteractiveHoverButton
+          onClick={logout}
+          className='py-1.5 px-2.5 sm:px-4 rounded-[5px]'
         >
-          <div className='py-1.5 px-2 sm:px-3 rounded-[5px] bg-gray-200 text-gray-600'>
-            {aToken ? (
-              <p>
-                <b>Admin</b> <span className='hidden sm:inline'>Account</span>
-              </p>
-            ) : (
-              <p>
-                <b>Doctor</b> <span className='hidden sm:inline'>Account</span>
-              </p>
-            )}
-          </div>
-        </ShineBorder>
-        <button className='px-3 py-1.5 rounded-[5px] bg-primary text-white shadow-md hover:scale-[103%] transition-all duration-100 ease-in'>
           Logout
-        </button>
+        </InteractiveHoverButton>
       </div>
     </div>
   )
