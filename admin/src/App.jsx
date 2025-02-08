@@ -15,7 +15,7 @@ const App = () => {
 
   return aToken ? (
     <div>
-      <ToastContainer />
+      <ToastContainer position='top-center' theme='colored' />
       <Navbar />
       <div className='flex items-start'>
         <Sidebar />
@@ -31,7 +31,7 @@ const App = () => {
   ) : (
     <>
       <Login />
-      <ToastContainer />
+      <ToastContainer position='top-center' theme='colored' />
     </>
   )
 }
