@@ -11,10 +11,12 @@ import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTopFloatingButton from './components/ScrollToTopFloatingButton'
+import { ToastContainer } from 'react-toastify'
 
 const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
+      <ToastContainer theme='colored' />
       <Navbar />
       <ScrollToTopFloatingButton />
       <Routes>
