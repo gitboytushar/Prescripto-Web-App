@@ -7,7 +7,7 @@ const Footer = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='md:mx-10'>
+    <div>
       <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
         {/* ---------- left section --------- */}
         <div>

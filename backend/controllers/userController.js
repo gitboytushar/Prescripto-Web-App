@@ -52,5 +52,47 @@ const registerUser = async (req, res) => {
 }
 
 // api to login a user
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body
 
-export { registerUser }
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ success: false, message: 'Missing Details...' })
+    }
+
+    // validating email format
+    if (!validator.isEmail(email)) {
+      return res
+        .status(400)
+        .json({ success: false, message: 'Enter a Valid Email.' })
+    }
+
+    // find user by email in database
+    const user = await userModel.findOne({ email })
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: 'User Not Found !!!' })
+    }
+
+    // compare user password with saved password in database
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    if (isMatch) {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+      res.status(200).json({ success: true, token })
+    } else {
+      return res
+        .status(400)
+        .json({ success: false, message: 'Invalid Credentials' })
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ success: false, message: error.message })
+  }
+}
+
+export { registerUser, loginUser }

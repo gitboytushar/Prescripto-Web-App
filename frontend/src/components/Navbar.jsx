@@ -1,14 +1,24 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react'
+import { AppContext } from '../context/AppContext'
+import { toast } from 'react-toastify'
 
 const Navbar = () => {
   const navigate = useNavigate()
 
+  const { token, setToken } = useContext(AppContext)
+
   const [showMenu, setShowMenu] = useState(false) // For mobile menu
   const [showProfileMenu, setShowProfileMenu] = useState(false) // For profile dropdown
-  const [token, setToken] = useState(true)
+
+  // logout function to clear token from local storage and context
+  const logout = () => {
+    setToken(false)
+    localStorage.removeItem('token')
+    toast.info('User Logged Out')
+  }
 
   // Handle click outside for profile menu
   React.useEffect(() => {
@@ -77,7 +87,7 @@ const Navbar = () => {
         </NavLink>
       </ul>
 
-      <div className='flex items-center gap-3'>
+      <div className='flex items-center'>
         {/* ------- profile menu --------- */}
         <div className='flex items-center gap-2'>
           {token ? (
@@ -118,7 +128,7 @@ const Navbar = () => {
                   </p>
                   <hr className='my-[1px] mx-2 rounded-full' />
                   <p
-                    onClick={() => setToken(false)}
+                    onClick={logout}
                     className='px-2 py-1 rounded hover:text-red-500 hover:bg-black/5 transition-colors duration-100 ease-in cursor-pointer w-full flex items-center justify-start gap-1'
                   >
                     <span>Logout</span>
@@ -130,7 +140,7 @@ const Navbar = () => {
           ) : (
             <button
               onClick={() => navigate('/login')}
-              className='bg-primary text-white px-8 py-3 rounded-md font-normal hidden md:block'
+              className='bg-primary text-white px-5 py-2.5 rounded-md font-normal tracking-wide hidden md:block hover:opacity-90 transition-all duration-200 ease-in'
             >
               Create Account
             </button>
