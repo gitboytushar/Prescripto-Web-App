@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 const Navbar = () => {
   const navigate = useNavigate()
 
-  const { token, setToken } = useContext(AppContext)
+  const { token, setToken, userData } = useContext(AppContext)
 
   const [showMenu, setShowMenu] = useState(false) // For mobile menu
   const [showProfileMenu, setShowProfileMenu] = useState(false) // For profile dropdown
@@ -90,15 +90,15 @@ const Navbar = () => {
       <div className='flex items-center'>
         {/* ------- profile menu --------- */}
         <div className='flex items-center gap-2'>
-          {token ? (
+          {token && userData ? (
             <div
               className='flex items-center gap-2 cursor-pointer relative lg:mx-12 p-1.5 select-none profile-menu-container'
               onClick={() => setShowProfileMenu(!showProfileMenu)}
             >
               <div className='flex items-center gap-1'>
                 <img
-                  className='w-8 rounded-md'
-                  src={assets.profile_pic}
+                  className='w-8 rounded-md border'
+                  src={userData.image}
                   alt='profile pic'
                 />
                 <ChevronDown

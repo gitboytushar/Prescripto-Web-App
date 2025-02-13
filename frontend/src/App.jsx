@@ -16,7 +16,7 @@ import { ToastContainer } from 'react-toastify'
 const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
-      <ToastContainer theme='colored' />
+      <ToastContainer theme='colored' className='mt-16' />
       <Navbar />
       <ScrollToTopFloatingButton />
       <Routes>

@@ -26,7 +26,7 @@ const Footer = () => {
         {/* ---------- center section --------- */}
         <div>
           <p className='text-xl font-medium mb-5'>COMPANY</p>
-          <ul className='flex flex-col gap-2 text-gray-600'>
+          <ul className='flex w-fit flex-col gap-2 text-gray-600'>
             <li
               onClick={() => {
                 navigate('/')
@@ -60,7 +60,7 @@ const Footer = () => {
         {/* ---------- right section --------- */}
         <div>
           <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
-          <ul className='flex flex-col gap-2 text-gray-600'>
+          <ul className='flex w-fit flex-col gap-2 text-gray-600'>
             <li>+1-212-456-7890</li>
             <a
               href='mailto:tusharwork.001@gmail.com'
