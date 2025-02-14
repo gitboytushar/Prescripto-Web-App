@@ -33,8 +33,12 @@ const TopDoctors = () => {
                 <p className='size-2 bg-green-500 rounded-full'></p>
                 <p>Available</p>
               </div>
-              <p className='text-gray-900 text-lg font-medium'>{item.name}</p>
-              <p className='text-gray-600 text-sm'>{item.speciality}</p>
+              <p className='text-gray-900 text-lg font-medium whitespace-nowrap overflow-x-scroll hide-the-scrollbar'>
+                {item.name}
+              </p>
+              <p className='text-gray-600 text-sm whitespace-nowrap overflow-x-scroll hide-the-scrollbar'>
+                {item.speciality}
+              </p>
             </div>
           </div>
         ))}
