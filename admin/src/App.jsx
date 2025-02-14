@@ -15,7 +15,10 @@ const App = () => {
 
   return aToken ? (
     <div>
-      <ToastContainer theme='colored' className='mt-14' />
+      <ToastContainer
+        theme='colored'
+        className='scale-95 mt-2 sm:scale-100 sm:mt-14'
+      />
       <Navbar />
       <div className='flex items-start'>
         <Sidebar />

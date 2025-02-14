@@ -1,14 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 import { assets } from '../assets/assets'
 import { CalendarArrowDown, Check } from 'lucide-react'
 import RelatedDoctor from '../components/RelatedDoctor'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
 const Appointment = () => {
   const { docId } = useParams() // docId from the URL
-  const { doctors, currencySymbol } = useContext(AppContext)
+  const { doctors, currencySymbol, backendUrl, token, getDoctorsData } =
+    useContext(AppContext)
+
   const daysOfWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
+
+  const navigate = useNavigate()
 
   const [docInfo, setDocInfo] = useState(null)
   const [docSlots, setDocSlots] = useState([])
@@ -21,22 +27,20 @@ const Appointment = () => {
   }
 
   const getAvailableSlots = async () => {
-    setDocSlots([])
+    if (!docInfo) return
 
-    // getting current date
     let today = new Date()
+    let updatedSlots = [] // Store all slots in an array
 
     for (let i = 0; i < 7; i++) {
-      // getting date with index
       let currentDate = new Date(today)
       currentDate.setDate(today.getDate() + i)
 
-      // setting end time of the date with index
       let endTime = new Date()
       endTime.setDate(today.getDate() + i)
       endTime.setHours(21, 0, 0, 0)
 
-      // setting hours
+      // Setting hours
       if (today.getDate() === currentDate.getDate()) {
         currentDate.setHours(
           currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10
@@ -55,16 +59,73 @@ const Appointment = () => {
           minute: '2-digit'
         })
 
-        // add slot to array
-        timeSlots.push({
-          datetime: new Date(currentDate),
-          time: formattedTime
-        })
+        let day = currentDate.getDate().toString().padStart(2, '0')
+        let month = (currentDate.getMonth() + 1).toString().padStart(2, '0')
+        let year = currentDate.getFullYear()
 
-        // increment current time by 30mins
+        const slotDate = `${day}_${month}_${year}`
+        const slotTime = formattedTime
+
+        // Ensure docInfo.slots_booked exists and filter correctly
+        const isSlotBooked =
+          docInfo?.slots_booked?.[slotDate]?.includes(slotTime) ?? false
+
+        if (!isSlotBooked) {
+          timeSlots.push({
+            datetime: new Date(currentDate),
+            time: slotTime
+          })
+        }
+
+        // Increment by 30 minutes
         currentDate.setMinutes(currentDate.getMinutes() + 30)
       }
-      setDocSlots(prev => [...prev, timeSlots])
+
+      updatedSlots.push(timeSlots)
+    }
+
+    setDocSlots(updatedSlots) // Set all slots at once after processing
+  }
+
+  const bookAppointment = async () => {
+    if (!token) {
+      toast.warning('Login to book an appointment.')
+      window.scrollTo(0, 0)
+      return navigate('/login')
+    }
+
+    try {
+      const date = docSlots[slotIndex][0].datetime
+      let day = date.getDate().toString().padStart(2, '0')
+      let month = (date.getMonth() + 1).toString().padStart(2, '0')
+      let year = date.getFullYear()
+
+      const slotDate = day + '_' + month + '_' + year
+
+      const { data } = await axios.post(
+        backendUrl + '/api/user/book-appointment',
+        { docId, slotDate, slotTime },
+        { headers: { token } }
+      )
+
+      if (data.success) {
+        toast.success(data.message)
+        getDoctorsData()
+        navigate('/my-appointments')
+        window.scrollTo(0, 0)
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message)
+      } else {
+        toast.error('An unexpected error occurred. Please try again.')
+      }
     }
   }
 
@@ -188,6 +249,7 @@ const Appointment = () => {
           <hr className='mt-4' />
           {/* confirm booking button */}
           <button
+            onClick={bookAppointment}
             className={`flex items-center justify-center gap-2 mt-5 rounded-lg px-5 py-3.5 text-[14px] font-normal tracking-wide ${
               slotTime
                 ? 'bg-primary text-white cursor-pointer active:scale-[96%] transition-all duration-100 ease-in'
