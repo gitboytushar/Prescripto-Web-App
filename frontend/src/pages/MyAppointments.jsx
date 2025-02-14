@@ -1,8 +1,57 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const MyAppointments = () => {
-  const { doctors } = useContext(AppContext)
+  const { backendUrl, token } = useContext(AppContext)
+
+  const [appointments, setAppointments] = useState([])
+
+  const months = [
+    '',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ]
+
+  const slotDateFormat = slotDate => {
+    const dateArray = slotDate.split('/')
+    return (
+      dateArray[0] + ' ' + months[Number(dateArray[1])] + ' ' + dateArray[2]
+    )
+  }
+
+  const getUserAppointments = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + '/api/user/appointments', {
+        headers: { token }
+      })
+
+      if (data.success) {
+        setAppointments(data.appointments.reverse())
+        console.log(data.appointments)
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.message)
+    }
+  }
+
+  useEffect(() => {
+    if (token) {
+      getUserAppointments()
+    }
+  }, [token])
 
   return (
     <div className='w-full flex flex-col items-center justify-center'>
@@ -10,7 +59,7 @@ const MyAppointments = () => {
         My Appointments
       </p>
       <div className='w-[80vw] md:w-full md:px-44'>
-        {doctors.slice(0, 3).map((item, index) => (
+        {appointments.map((item, index) => (
           <div
             className='flex flex-col md:flex-row gap-2.5 items-center justify-between p-4 md:p-7 bg-gray-50 my-2 rounded-md'
             key={index}
@@ -21,24 +70,26 @@ const MyAppointments = () => {
               <div className='flex justify-center'>
                 <img
                   className='w-44 bg-indigo-100 rounded-full md:rounded-md'
-                  src={item.image}
+                  src={item.docData.image}
                   alt='doctor photo'
                 />
               </div>
 
               {/* appointment info */}
               <div className='text-base text-zinc-600 text-center md:text-start'>
-                <p className='text-neutral-800 font-semibold'>{item.name}</p>
-                <p>{item.speciality}</p>
+                <p className='text-neutral-800 font-semibold'>
+                  {item.docData.name}
+                </p>
+                <p>{item.docData.speciality}</p>
                 <p className='text-zinc-700 font-medium mt-2'>Address:</p>
-                <p className='text-sm'>{item.address.line1}</p>
-                <p className='text-sm'>{item.address.line2}</p>
+                <p className='text-sm'>{item.docData.address.line1}</p>
+                <p className='text-sm'>{item.docData.address.line2}</p>
                 <p className='mt-2'>
                   <span className='text-sm text-neutral-700 font-medium'>
                     Date & Time: &nbsp;
                   </span>
                   <br />
-                  25, July 2024 - 8:30PM
+                  {slotDateFormat(item.slotDate)} - {item.slotTime}
                 </p>
               </div>
             </div>

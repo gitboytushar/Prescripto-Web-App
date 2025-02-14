@@ -203,4 +203,24 @@ const bookAppointment = async (req, res) => {
   }
 }
 
-export { registerUser, loginUser, getProfile, updateProfile, bookAppointment }
+// Api to get user Appointments for frontend my appointments page
+const listAppointment = async (req, res) => {
+  try {
+    const { userId } = req.body
+    const appointments = await appointmentModel.find({ userId })
+    res.status(201).json({ success: true, appointments })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ success: false, message: error.message })
+  }
+}
+
+// export all user controllers
+export {
+  registerUser,
+  loginUser,
+  getProfile,
+  updateProfile,
+  bookAppointment,
+  listAppointment
+}
