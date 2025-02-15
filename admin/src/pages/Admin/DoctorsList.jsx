@@ -13,11 +13,11 @@ const DoctorsList = () => {
 
   return (
     <div className='m-2 w-full sm:w-[80vw] flex flex-col items-center sm:items-start justify-center pb-2 gap-4 sm:p-4 bg-gray-50 rounded'>
-      <h1 className='text-2xl mt-3 sm:mt-0 sm:text-3xl font-semibold tracking-wide text-primary'>
+      <h1 className='text-2xl mt-3 sm:mt-0 sm:text-3xl font-semibold px-1 tracking-wide text-primary'>
         All Doctors
       </h1>
 
-      <div className='w-full flex flex-row items-center justify-center sm:justify-start flex-wrap gap-2 sm:gap-5'>
+      <div className='w-full flex flex-row items-center justify-center sm:justify-start flex-wrap gap-2 p-1 sm:gap-5 sm:max-h-[81.5vh] sm:overflow-y-scroll doctorlist-scrollbar'>
         {doctors.map((item, index) => (
           <div
             className='border border-primary/50 rounded-md w-[45vw] sm:w-56 overflow-hidden group hover:scale-[101%] transition-all duration-200 ease-in bg-primary/10'

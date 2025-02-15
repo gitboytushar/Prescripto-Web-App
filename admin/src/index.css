@@ -17,6 +17,12 @@ input[type="checkbox"] {
   scrollbar-width: none;
 }
 
+.doctorlist-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #8e99ff #F9FAFB;
+  scroll-behavior: smooth;
+}
+
 .hide-the-scrollbar::-webkit-scrollbar {
   display: none;
 }
