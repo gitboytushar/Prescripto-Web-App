@@ -168,22 +168,22 @@ const Appointment = () => {
               <p>
                 {docInfo.degree} - {docInfo.speciality}
               </p>
-              <button className='py-0.5 px-2.5 border text-xs rounded-md'>
+              <button className='py-0.5 px-2.5 border text-xs rounded-md cursor-default'>
                 {docInfo.experience}
               </button>
             </div>
 
             {/* Doctor About */}
             <div>
-              <p className='flex items-center gap-1.5 text-sm font-medium text-gray-900 mt-3 '>
+              <p className='flex items-center gap-1.5 text-sm sm:text-base font-medium text-gray-900 mt-3 '>
                 About
                 <img className='w-3' src={assets.info_icon} alt='' />
               </p>
-              <p className='text-sm text-gray-500 max-w-[750px] mt-1'>
+              <p className='text-sm sm:text-base text-gray-500 max-w-[750px] mt-1'>
                 {docInfo.about}
               </p>
             </div>
-            <p className='text-gray-800 font-medium mt-7'>
+            <p className='text-gray-800 font-medium mt-7 sm:mt-14 sm:translate-y-2'>
               Appointment Fees: &nbsp;
               <span>
                 {currencySymbol}

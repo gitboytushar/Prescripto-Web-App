@@ -58,6 +58,15 @@ const Login = () => {
       navigate('/')
       toast.success('Login Successful.')
     }
+
+    // Get form type from URL
+    const params = new URLSearchParams(window.location.search)
+    const type = params.get('type')
+    if (type === 'login') {
+      setState('Login')
+    } else if (type === 'signup') {
+      setState('Sign Up')
+    }
   }, [token])
 
   return (

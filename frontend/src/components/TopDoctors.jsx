@@ -20,7 +20,7 @@ const TopDoctors = () => {
               navigate(`/appointment/${item._id}`)
               scrollTo(0, 0)
             }}
-            className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-300 ease-linear group'
+            className='border border-blue-200 rounded-md overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-300 ease-linear group'
             key={index}
           >
             <img
@@ -48,7 +48,7 @@ const TopDoctors = () => {
           navigate('/doctors')
           scrollTo(0, 0)
         }}
-        className='bg-blue-50 text-gray-600 hover:text-black hover:tracking-widest transition-all duration-200 ease-linear px-12 py-3 rounded-lg mt-10'
+        className='bg-blue-50 text-gray-600 hover:text-black hover:tracking-widest transition-all duration-200 ease-linear px-12 py-3 rounded mt-10'
       >
         <span>More</span>
       </button>

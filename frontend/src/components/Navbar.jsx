@@ -138,15 +138,30 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <button
-              onClick={() => navigate('/login')}
-              className='bg-primary text-white px-5 py-2.5 rounded-md font-normal tracking-wide hidden md:block hover:opacity-90 transition-all duration-200 ease-in'
-            >
-              Create Account
-            </button>
+            <div className='flex items-center justify-center gap-1.5'>
+              <button
+                onClick={() => navigate('/login?type=login')}
+                className='bg-white text-primary border border-primary px-4 py-2 rounded font-normal tracking-wide hidden sm:block hover:drop-shadow-md transition-all duration-200 ease-in-out'
+              >
+                Sign In
+              </button>
+              <button
+                onClick={() => navigate('/login?type=signup')}
+                className='bg-primary border border-primary text-white px-4 py-2 rounded font-normal tracking-wide hidden sm:block hover:opacity-90 hover:drop-shadow-md transition-all duration-200 ease-in-out'
+              >
+                Sign Up
+              </button>
+            </div>
           )}
         </div>
 
+        {/* sign up btn for mobile */}
+        <button
+          onClick={() => navigate('/login?type=signup')}
+          className='bg-primary border border-primary text-white px-2.5 py-1.5 mr-3 rounded-[3px] font-normal text-xs block sm:hidden active:scale-[96%] transition-transform duration-100 ease-in'
+        >
+          Sign Up
+        </button>
         {/* --------- mobile menu -------- */}
         <div>
           {/* bar icon */}

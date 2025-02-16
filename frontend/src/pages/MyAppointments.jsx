@@ -78,7 +78,7 @@ const MyAppointments = () => {
       <p className='mb-2 md:mb-5 md:mt-8 text-xl md:text-3xl font-medium text-neutral-400'>
         My Appointments
       </p>
-      <div className='w-[80vw] md:w-full md:px-44'>
+      <div className='w-[90vw] md:w-full md:px-44'>
         {appointments.map((item, index) => (
           <div
             className='flex flex-col md:flex-row gap-2.5 items-center justify-between p-4 md:p-7 bg-gray-50 my-2 rounded-md'
@@ -89,7 +89,7 @@ const MyAppointments = () => {
               {/* doctor profile */}
               <div className='flex justify-center'>
                 <img
-                  className='w-44 bg-indigo-100 rounded-full md:rounded-md'
+                  className='w-56 sm:w-44 bg-indigo-100 rounded-md'
                   src={item.docData.image}
                   alt='doctor photo'
                 />

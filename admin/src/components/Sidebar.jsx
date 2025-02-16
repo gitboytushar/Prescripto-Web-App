@@ -51,7 +51,15 @@ const Sidebar = () => {
         {!isMenuOpen ? <Menu size={24} /> : <X size={24} />}
       </button>
 
-      {/* side bar */}
+      {/* overlay on mobile */}
+      {isMenuOpen && (
+        <div
+          className='fixed inset-0 bg-black/50 sm:hidden z-30'
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+
+      {/* main side bar */}
       <div
         ref={sidebarRef}
         className={`min-h-fit sm:min-h-screen bg-white rounded-r-md sm:rounded-none sm:border-r md:block fixed md:static min-w-64 z-40 transition-transform duration-300 ease-in-out ${

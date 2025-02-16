@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ChevronUp } from 'lucide-react'
+import { ChevronsUp } from 'lucide-react'
 
 const ScrollToTopFloatingButton = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -33,7 +33,7 @@ const ScrollToTopFloatingButton = () => {
           onClick={scrollToTop}
           className='fixed z-30 bottom-5 right-5 bg-primary text-white p-2 md:p-3 rounded-full motion-preset-pop motion-duration-700 border border-white'
         >
-          <ChevronUp size={25} />
+          <ChevronsUp size={25} />
         </button>
       )}
     </div>
