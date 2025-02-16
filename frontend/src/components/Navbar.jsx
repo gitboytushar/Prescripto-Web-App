@@ -154,14 +154,17 @@ const Navbar = () => {
             </div>
           )}
         </div>
-
         {/* sign up btn for mobile */}
-        <button
-          onClick={() => navigate('/login?type=signup')}
-          className='bg-primary border border-primary text-white px-2.5 py-1.5 mr-3 rounded-[3px] font-normal text-xs block sm:hidden active:scale-[96%] transition-transform duration-100 ease-in'
-        >
-          Sign Up
-        </button>
+        {!token && (
+          <>
+            <button
+              onClick={() => navigate('/login?type=signup')}
+              className='bg-primary border border-primary text-white px-2.5 py-1.5 mr-3 rounded-[3px] font-normal text-xs block sm:hidden active:scale-[96%] transition-transform duration-100 ease-in'
+            >
+              Sign Up
+            </button>
+          </>
+        )}
         {/* --------- mobile menu -------- */}
         <div>
           {/* bar icon */}
