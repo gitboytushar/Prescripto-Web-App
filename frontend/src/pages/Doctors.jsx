@@ -140,7 +140,7 @@ const Doctors = () => {
           {filterDoc.map((item, index) => (
             <div
               onClick={() => navigate(`/appointment/${item._id}`)}
-              className='border border-blue-200 rounded-md overflow-hidden cursor-pointer hover:scale-[102%] transition-all duration-200 ease-linear group'
+              className='border border-blue-200 rounded-lg sm:rounded-xl overflow-hidden cursor-pointer hover:scale-[102%] transition-all duration-200 ease-linear group'
               key={index}
             >
               <img

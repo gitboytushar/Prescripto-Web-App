@@ -95,9 +95,9 @@ const Navbar = () => {
               className='flex items-center gap-2 cursor-pointer relative lg:mx-12 p-1.5 select-none profile-menu-container'
               onClick={() => setShowProfileMenu(!showProfileMenu)}
             >
-              <div className='flex items-center gap-1'>
+              <div className='flex items-center gap-px sm:gap-1'>
                 <img
-                  className='w-8 rounded-md border'
+                  className='size-8 sm:size-9 aspect-square object-cover rounded-[5px] border'
                   src={userData.image}
                   alt='profile pic'
                 />
@@ -111,9 +111,9 @@ const Navbar = () => {
               <div
                 className={`absolute top-0 right-0 pt-12 text-base font-medium text-black z-20 ${
                   showProfileMenu ? 'block' : 'hidden'
-                } motion-translate-x-in-[0%] motion-translate-y-in-[-5%] motion-duration-[0.3s] motion-ease-linear`}
+                } motion-translate-x-in-[0%] motion-translate-y-in-[-5%] motion-duration-[0.26s] motion-ease-linear`}
               >
-                <div className='min-w-48 bg-gray-100 rounded text-[15px] font-normal flex flex-col gap-1 p-2'>
+                <div className='min-w-48 bg-gray-100 border border-gray-200 rounded-[7px] text-[15px] font-normal flex flex-col gap-1 p-2'>
                   <p
                     onClick={() => navigate('my-profile')}
                     className='px-2 py-1 rounded hover:bg-black/5 transition-colors duration-200 ease-in cursor-pointer'
@@ -129,10 +129,13 @@ const Navbar = () => {
                   <hr className='my-[1px] mx-2 rounded-full' />
                   <p
                     onClick={logout}
-                    className='px-2 py-1 rounded hover:text-red-500 hover:bg-black/5 transition-colors duration-100 ease-in cursor-pointer w-full flex items-center justify-start gap-1'
+                    className='px-2 py-1 rounded hover:text-red-500 hover:bg-black/5 transition-all duration-100 ease-in cursor-pointer w-full flex items-center justify-start gap-1 group'
                   >
                     <span>Logout</span>
-                    <ArrowRight size={15} />
+                    <ArrowRight
+                      size={15}
+                      className='group-hover:translate-x-1 transition-transform duration-200 ease-linear'
+                    />
                   </p>
                 </div>
               </div>

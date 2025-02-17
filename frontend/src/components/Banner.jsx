@@ -9,7 +9,7 @@ const Banner = () => {
   const { userData } = useContext(AppContext)
 
   return (
-    <div className='flex bg-primary rounded-md px-6 sm:px-10 md:px-14 lg:px-20 my-28 md:mx-10'>
+    <div className='flex bg-primary rounded-lg px-6 sm:px-10 md:px-14 lg:px-20 my-28 md:mx-10'>
       {/* -------- left side ---------- */}
       <div className='flex-1 py-8 sm:py-10 md:py-16 lg:py-24 lg:pl-5'>
         <div className='text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-white'>
@@ -22,7 +22,7 @@ const Banner = () => {
               navigate('/login')
               scrollTo(0, 0)
             }}
-            className='bg-white text-sm sm:text-base font-medium text-gray-600 px-8 py-3 rounded-md mt-6 hover:scale-[102%] transition-all duration-200 flex items-center gap-1.5'
+            className='bg-white text-sm sm:text-base font-medium text-gray-600 px-8 py-3 rounded-md mt-6 flex items-center gap-1.5 hover:scale-[101%] hover:drop-shadow-xl tracking-wide transition-all duration-200'
           >
             Create Account
             <span>
@@ -36,7 +36,7 @@ const Banner = () => {
               navigate('/doctors')
               scrollTo(0, 0)
             }}
-            className='bg-white text-sm sm:text-base font-medium text-gray-600 px-8 py-3 rounded mt-6 hover:scale-[102%] transition-all duration-200 flex items-center gap-1.5'
+            className='bg-white text-sm sm:text-base font-medium text-gray-600 px-8 py-3 rounded-md mt-6 flex items-center gap-1.5 hover:scale-[101%] hover:drop-shadow-xl tracking-wide transition-all duration-200'
           >
             Book Appointment
             <span>
