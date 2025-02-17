@@ -120,9 +120,11 @@ const MyAppointments = () => {
   }
 
   useEffect(() => {
-    if (token) {
-      getUserAppointments()
+    if (!token) {
+      navigate('/')
+      return
     }
+    getUserAppointments()
   }, [token])
 
   // ------- Paid Button Welcome Animation Playback Config ----------
