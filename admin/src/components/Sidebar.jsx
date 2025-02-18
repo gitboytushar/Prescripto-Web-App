@@ -99,10 +99,10 @@ const Sidebar = () => {
                   isActive ? 'bg-primary text-white' : 'hover:bg-gray-100'
                 }`
               }
-              to={'/add-doctor'}
+              to={'/doctor-list'}
             >
-              <SquarePlus size={18} />
-              <p>Add Doctor</p>
+              <List size={18} />
+              <p>Doctors List</p>
             </NavLink>
             <NavLink
               onClick={handleNavClick}
@@ -111,10 +111,10 @@ const Sidebar = () => {
                   isActive ? 'bg-primary text-white' : 'hover:bg-gray-100'
                 }`
               }
-              to={'/doctor-list'}
+              to={'/add-doctor'}
             >
-              <List size={18} />
-              <p>Doctors List</p>
+              <SquarePlus size={18} />
+              <p>Add Doctor</p>
             </NavLink>
           </ul>
         )}
