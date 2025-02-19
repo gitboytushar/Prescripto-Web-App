@@ -2,6 +2,12 @@ import { AdminContext } from '@/context/AdminContext'
 import { AppContext } from '@/context/AppContext'
 import React, { useContext, useEffect, useState } from 'react'
 import { X } from 'lucide-react'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
 
 const AllApointments = () => {
   const { aToken, appointments, getAllAppointments, cancelAppointment } =
@@ -54,7 +60,7 @@ const AllApointments = () => {
           .reverse()
           .map((item, index) => (
             <div
-              className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-50'
+              className='max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-600 sm:text-gray-500 py-3 px-6 border-b hover:bg-gray-50'
               key={index}
             >
               {/* appointment index number */}
@@ -79,7 +85,7 @@ const AllApointments = () => {
                 <p className='max-sm:hidden text-rose-300'>NA</p>
               )}
               {/* appointement date & time */}
-              <p>
+              <p className='w-full flex justify-end sm:justify-start'>
                 {slotDateFormat(item.slotDate)}, &nbsp; {item.slotTime}
               </p>
               {/* doctor data */}
@@ -93,23 +99,38 @@ const AllApointments = () => {
                 />
                 <p className='capitalize'>{item.docData.name}</p>
               </div>
-              <p>
+              <p className='w-full flex justify-end sm:justify-start'>
                 {currencySymbol}
                 {item.amount}
               </p>
               {/* check appointment status */}
               {item.cancelled ? (
-                <p className='text-red-400 w-full py-1'>Cancelled</p>
+                <p className='text-red-400 w-full flex justify-center sm:justify-start py-1'>
+                  Cancelled
+                </p>
               ) : (
-                <div className='w-full'>
-                  <button
-                    onClick={() => cancelAppointment(item._id)}
-                    className='p-1 rounded text-red-400 border border-red-400 hover:border-transparent hover:text-white hover:bg-red-400 hover:scale-105 hover:rotate-180 active:scale-50 transition-all duration-300 ease-in-out'
-                  >
-                    <span>
-                      <X size={16} />
-                    </span>
-                  </button>
+                <div className='w-full flex justify-center sm:justify-start'>
+                  <TooltipProvider delayDuration={0}>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <button
+                          onClick={() => cancelAppointment(item._id)}
+                          className='p-1 rounded text-red-400 border border-red-400 hover:border-transparent hover:text-white hover:bg-red-400 hover:scale-105 hover:rotate-180 active:scale-50 transition-all duration-300 ease-in-out'
+                        >
+                          <span>
+                            <X size={16} />
+                          </span>
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side='right'
+                        align='center'
+                        className='px-3 py-2 mx-2 rounded-[6px] text-xs tracking-wide'
+                      >
+                        Cancel <br /> Appointment
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
               )}
             </div>

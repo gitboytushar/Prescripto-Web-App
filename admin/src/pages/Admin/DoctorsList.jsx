@@ -1,5 +1,11 @@
 import { AdminContext } from '@/context/AdminContext'
 import React, { useContext, useEffect } from 'react'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
 
 const DoctorsList = () => {
   const { doctors, aToken, getAllDoctors, changeAvailability } =
@@ -36,12 +42,25 @@ const DoctorsList = () => {
                 {item.speciality}
               </p>
               <div className='flex items-center justify-start mt-2.5 gap-1.5'>
-                <input
-                  onChange={() => changeAvailability(item._id)}
-                  className='size-3.5 -translate-y-[0.5px] cursor-pointer hover:scale-[115%] active:scale-[90%] transition-all duration-150 ease-in'
-                  type='checkbox'
-                  checked={item.available}
-                />
+                <TooltipProvider delayDuration={300}>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <input
+                        onChange={() => changeAvailability(item._id)}
+                        className='size-3.5 -translate-y-[0.5px] cursor-pointer hover:scale-[115%] active:scale-[90%] transition-all duration-200 ease-in-out'
+                        type='checkbox'
+                        checked={item.available}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side='top'
+                      align='center'
+                      className='px-3 py-2.5 mb-1 shadow-xl shadow-black/20 bg-primary text-white border-none rounded-[6px] text-sm text-center capitalize'
+                    >
+                      Click to change <br /> Doctor's availability
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
                 <p className='text-sm font-medium tracking-wide'>Available</p>
               </div>
             </div>

@@ -3,6 +3,12 @@ import { AdminContext } from '@/context/AdminContext'
 import { AppContext } from '@/context/AppContext'
 import { CalendarDays, X } from 'lucide-react'
 import React, { useContext, useEffect, useState } from 'react'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
 
 const Dashboard = () => {
   const { aToken, getDashData, cancelAppointment, dashData } =
@@ -98,7 +104,7 @@ const Dashboard = () => {
           </div>
 
           {/* ------------ 5 most recent appointments ------------ */}
-          <div className='bg-gray-100 w-[90vw] sm:w-auto border px-4 py-5 rounded-xl mb-12'>
+          <div className='bg-gray-100 w-[90vw] sm:w-auto border px-4 pt-5 pb-2.5 rounded-xl'>
             <div className='flex items-center gap-3 pb-3.5 uppercase text-gray-700 border-b'>
               <CalendarDays size={24} strokeWidth={2} />
               <p className='text-base sm:text-lg font-semibold tracking-wide'>
@@ -110,7 +116,7 @@ const Dashboard = () => {
             <div className='mt-5'>
               {dashData.latestAppointments.map((item, index) => (
                 <div
-                  className='flex items-center gap-2 sm:gap-4 px-3 py-3 sm:px-6 sm:py-5 bg-white rounded-lg mb-1.5 hover:bg-gray-100'
+                  className='flex items-center gap-2 sm:gap-4 px-3 py-3 sm:px-6 sm:py-4 bg-white rounded-lg mb-1.5'
                   key={index}
                 >
                   <img
@@ -135,15 +141,28 @@ const Dashboard = () => {
                       Cancelled
                     </p>
                   ) : (
-                    <div className=' min-w-16 sm:min-w-28 flex justify-center'>
-                      <button
-                        onClick={() => cancelAppointment(item._id)}
-                        className='p-1 rounded text-red-400 border border-red-400 hover:border-transparent hover:text-white hover:bg-red-400 hover:scale-105 hover:rotate-180 active:scale-50 transition-all duration-300 ease-in-out'
-                      >
-                        <span>
-                          <X size={16} />
-                        </span>
-                      </button>
+                    <div className='min-w-16 sm:min-w-28 flex justify-center'>
+                      <TooltipProvider delayDuration={0}>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <button
+                              onClick={() => cancelAppointment(item._id)}
+                              className='p-1 rounded text-red-400 border border-red-400 hover:border-transparent hover:text-white hover:bg-red-400 hover:scale-105 hover:rotate-180 active:scale-50 transition-all duration-300 ease-in-out'
+                            >
+                              <span>
+                                <X size={16} />
+                              </span>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent
+                            side='top'
+                            align='center'
+                            className='px-2.5 py-2 mb-1 rounded-[6px] border-none bg-primary text-white text-xs tracking-wide'
+                          >
+                            Cancel Appointment
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                   )}
                 </div>
