@@ -36,10 +36,10 @@ const Login = () => {
   }
 
   return (
-    <div className='motion-preset-expand bg-gray-900 h-screen'>
+    <div className='bg-gray-900 h-screen overflow-hidden'>
       <form
         onSubmit={onSubmitHandler}
-        className='min-h-[80vh] flex items-center'
+        className='min-h-[80vh] flex items-center motion-preset-pop motion-duration-300'
       >
         <div className='flex flex-col gap-6 m-auto items-start p-5 md:p-8 min-w-[340px] sm:min-w-96 rounded-xl border border-gray-700 text-zinc-600 text-sm shadow-lg relative overflow-hidden bg-gray-800'>
           {/* lottie loop animation graphic at top */}

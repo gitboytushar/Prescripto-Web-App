@@ -39,7 +39,7 @@ const AllApointments = () => {
       </h1>
 
       <div className='bg-white w-full border rounded-lg text-sm max-h-[80vh] min-h-[60vh] overflow-y-scroll doctorlist-scrollbar'>
-        <div className='hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] grid-flow-col py-3 px-6 border-b uppercase font-medium bg-white sticky top-0'>
+        <div className='hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] grid-flow-col py-3.5 px-6 border-b uppercase font-medium bg-white sticky top-0'>
           <p>#</p>
           <p>Patient</p>
           <p>Age</p>
@@ -68,7 +68,7 @@ const AllApointments = () => {
                   alt='user image'
                   onClick={() => setSelectedImage(item.userData.image)}
                 />
-                <p>{item.userData.name}</p>
+                <p className='capitalize'>{item.userData.name}</p>
               </div>
               {/* patient's age or Not Available */}
               {!isNaN(Date.parse(item.userData.dob)) ? (
@@ -76,7 +76,7 @@ const AllApointments = () => {
                   {calculateAge(item.userData.dob)}
                 </p>
               ) : (
-                <p className='max-sm:hidden'>NA</p>
+                <p className='max-sm:hidden text-rose-300'>NA</p>
               )}
               {/* appointement date & time */}
               <p>
@@ -91,7 +91,7 @@ const AllApointments = () => {
                   alt='doctor image'
                   onClick={() => setSelectedImage(item.docData.image)}
                 />
-                <p>{item.docData.name}</p>
+                <p className='capitalize'>{item.docData.name}</p>
               </div>
               <p>
                 {currencySymbol}
