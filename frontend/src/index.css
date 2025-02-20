@@ -6,12 +6,21 @@
 
 * {
    font-family: "Poppins", serif;
+   scroll-behavior: smooth;
+   scrollbar-width: thin;
+}
+
+/* hide scroll bar from desired areas */
+div,
+p {
+   scrollbar-width: none
 }
 
 .active hr {
    @apply block;
 }
 
-::-webkit-scrollbar {
+/* removed bcz this creates a no scroll bug in build version */
+/* ::-webkit-scrollbar {
    @apply hidden
-}
+} */
