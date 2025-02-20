@@ -10,7 +10,13 @@ import {
 } from '@/components/ui/tooltip'
 
 const DoctorAppointments = () => {
-  const { dToken, appointments, getAppointments } = useContext(DoctorContext)
+  const {
+    dToken,
+    appointments,
+    getAppointments,
+    completeAppointment,
+    cancelAppointment
+  } = useContext(DoctorContext)
 
   const { calculateAge, slotDateFormat, currencySymbol } =
     useContext(AppContext)
@@ -46,11 +52,11 @@ const DoctorAppointments = () => {
       </h1>
 
       <div className='bg-white w-full border rounded-lg text-sm max-h-[80vh] min-h-[60vh] overflow-y-scroll doctorlist-scrollbar'>
-        <div className='hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] grid-flow-col py-3.5 px-6 border-b uppercase font-medium bg-white sticky top-0'>
+        <div className='hidden sm:grid grid-cols-[0.5fr_3fr_1fr_2fr_2.5fr_1fr_1.5fr] grid-flow-col py-3.5 px-6 border-b uppercase font-medium bg-white sticky top-0'>
           <p>#</p>
           <p>Patient</p>
-          <p>Payment</p>
           <p>Age</p>
+          <p>Payment Mode</p>
           <p>Date & Time</p>
           <p>Fees</p>
           <p>Actions</p>
@@ -61,7 +67,7 @@ const DoctorAppointments = () => {
           .reverse()
           .map((item, index) => (
             <div
-              className='max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-600 sm:text-gray-500 py-3 px-6 border-b hover:bg-gray-50'
+              className='max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_2fr_2.5fr_1fr_1.5fr] items-center text-gray-600 sm:text-gray-500 py-3 px-6 border-b hover:bg-gray-50'
               key={index}
             >
               <p className='max-sm:hidden'>{index + 1}</p>
@@ -77,16 +83,6 @@ const DoctorAppointments = () => {
                 <p className='capitalize'>{item.userData.name}</p>
               </div>
 
-              <div className='flex w-full justify-end sm:justify-start'>
-                <p
-                  className={`text-xs w-fit px-2 py-1 rounded-[5px] text-black ${
-                    item.payment ? 'bg-green-200' : 'bg-orange-200'
-                  }`}
-                >
-                  {item.payment ? 'ONLINE' : 'CASH'}
-                </p>
-              </div>
-
               {!isNaN(Date.parse(item.userData.dob)) ? (
                 <p className='max-sm:hidden'>
                   {calculateAge(item.userData.dob)}
@@ -94,6 +90,16 @@ const DoctorAppointments = () => {
               ) : (
                 <p className='max-sm:hidden text-rose-300'>NA</p>
               )}
+
+              <div className='flex w-full justify-end sm:justify-start'>
+                <p
+                  className={`text-xs min-w-14 text-center px-2 py-1 rounded-[5px] tracking-wider select-none text-black ${
+                    item.payment ? 'bg-green-200' : 'bg-orange-200'
+                  }`}
+                >
+                  {item.payment ? 'Online' : 'Cash'}
+                </p>
+              </div>
 
               <p>
                 {slotDateFormat(item.slotDate)}, &nbsp;{item.slotTime}
@@ -109,6 +115,10 @@ const DoctorAppointments = () => {
                 {item.cancelled ? (
                   <p className='text-red-400 w-full flex justify-center sm:justify-start py-1'>
                     Cancelled
+                  </p>
+                ) : item.isCompleted ? (
+                  <p className='text-green-500 w-full flex justify-center sm:justify-start py-1'>
+                    Completed
                   </p>
                 ) : (
                   <div className='w-full flex gap-2 justify-center sm:justify-start'>
@@ -126,11 +136,11 @@ const DoctorAppointments = () => {
                           </button>
                         </TooltipTrigger>
                         <TooltipContent
-                          side='top'
+                          side='left'
                           align='center'
-                          className='px-3 py-2 mb-2 rounded-[6px] text-xs tracking-wide'
+                          className='px-3 py-2 mr-1 text-center rounded-[6px] text-xs tracking-widest border-none bg-primary text-white'
                         >
-                          Cancel Appointment
+                          Cancel <br /> Appointment
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -139,8 +149,8 @@ const DoctorAppointments = () => {
                       <Tooltip>
                         <TooltipTrigger>
                           <button
-                            // onClick={() => cancelAppointment(item._id)}
-                            className='p-1 rounded text-green-400 border border-green-400 hover:border-transparent hover:text-white hover:bg-green-400 hover:scale-105 active:scale-50 transition-all duration-300 ease-in-out'
+                            onClick={() => completeAppointment(item._id)}
+                            className='p-1 rounded text-green-500 border border-green-500 hover:border-transparent hover:text-white hover:bg-green-500 hover:scale-105 active:scale-50 transition-all duration-300 ease-in-out'
                           >
                             <span>
                               <Check size={18} />
@@ -148,11 +158,11 @@ const DoctorAppointments = () => {
                           </button>
                         </TooltipTrigger>
                         <TooltipContent
-                          side='top'
+                          side='right'
                           align='center'
-                          className='px-3 py-2 mb-2 rounded-[6px] text-xs tracking-wide'
+                          className='px-3 py-2 ml-1 text-center rounded-[6px] text-xs tracking-widest border-none bg-primary text-white'
                         >
-                          Mark as Completed
+                          Mark as <br /> Completed
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
