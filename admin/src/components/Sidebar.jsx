@@ -1,4 +1,5 @@
 import { AdminContext } from '@/context/AdminContext'
+import { DoctorContext } from '@/context/DoctorContext'
 import {
   CheckCheck,
   LayoutDashboard,
@@ -12,6 +13,7 @@ import { NavLink } from 'react-router-dom'
 
 const Sidebar = () => {
   const { aToken } = useContext(AdminContext)
+  const { dToken } = useContext(DoctorContext)
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const sidebarRef = useRef(null)
@@ -66,6 +68,7 @@ const Sidebar = () => {
           isMenuOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
         }`}
       >
+        {/* admin panel sidebar */}
         {aToken && (
           <ul className='mt-16 sm:mt-2'>
             <NavLink
@@ -115,6 +118,47 @@ const Sidebar = () => {
             >
               <SquarePlus size={18} />
               <p>Add Doctor</p>
+            </NavLink>
+          </ul>
+        )}
+        {/* doctor panel sidebar */}
+        {dToken && (
+          <ul className='mt-16 sm:mt-2'>
+            <NavLink
+              onClick={handleNavClick}
+              className={({ isActive }) =>
+                `flex items-center select-none bg-gray-50 gap-3 py-3.5 px-3 md:px-6 m-2 rounded-[5px] md:min-w-64 cursor-pointer transition-all duration-200 ease-in-out ${
+                  isActive ? 'bg-primary text-white' : 'hover:bg-gray-100'
+                }`
+              }
+              to={'/doctor-dashboard'}
+            >
+              <LayoutDashboard size={18} />
+              <p>Dashboard</p>
+            </NavLink>
+            <NavLink
+              onClick={handleNavClick}
+              className={({ isActive }) =>
+                `flex items-center select-none bg-gray-50 gap-3 py-3.5 px-3 md:px-6 m-2 rounded-[5px] md:min-w-64 cursor-pointer transition-all duration-200 ease-in-out ${
+                  isActive ? 'bg-primary text-white' : 'hover:bg-gray-100'
+                }`
+              }
+              to={'/doctor-appointments'}
+            >
+              <CheckCheck size={18} />
+              <p>Appointments</p>
+            </NavLink>
+            <NavLink
+              onClick={handleNavClick}
+              className={({ isActive }) =>
+                `flex items-center select-none bg-gray-50 gap-3 py-3.5 px-3 md:px-6 m-2 rounded-[5px] md:min-w-64 cursor-pointer transition-all duration-200 ease-in-out ${
+                  isActive ? 'bg-primary text-white' : 'hover:bg-gray-100'
+                }`
+              }
+              to={'/doctor-profile'}
+            >
+              <List size={18} />
+              <p>Profile</p>
             </NavLink>
           </ul>
         )}

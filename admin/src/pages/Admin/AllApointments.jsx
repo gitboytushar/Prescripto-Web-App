@@ -86,7 +86,7 @@ const AllApointments = () => {
               )}
               {/* appointement date & time */}
               <p className='w-full flex justify-end sm:justify-start'>
-                {slotDateFormat(item.slotDate)}, &nbsp; {item.slotTime}
+                {slotDateFormat(item.slotDate)}, &nbsp;{item.slotTime}
               </p>
               {/* doctor data */}
               <div className='flex items-center gap-2'>
