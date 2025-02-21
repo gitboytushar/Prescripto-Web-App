@@ -1,4 +1,3 @@
-import req from 'express/lib/request.js'
 import doctorModel from '../models/doctorModel.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -112,11 +111,53 @@ const appointmentCancel = async (req, res) => {
   }
 }
 
+// API to get dashboard data for doctor panel
+const doctorDashboard = async (req, res) => {
+  try {
+    const { docId } = req.body
+
+    const appointments = await appointmentModel.find({ docId })
+
+    const docName = await doctorModel.findById(docId).select('name')
+
+    let earnings = 0
+
+    appointments.map(item => {
+      if (item.isCompleted || item.payment) {
+        earnings += item.amount
+      }
+    })
+
+    let patients = []
+    appointments.map(item => {
+      if (!patients.includes(item.userId)) {
+        patients.push(item.userId)
+      }
+    })
+
+    const dashData = {
+      docName,
+      earnings,
+      appointments: appointments.length,
+      patients: patients.length,
+      latestAppointments: appointments.reverse().slice(0, 5)
+    }
+
+    res.status(201).json({ success: true, dashData })
+  } catch (error) {
+    console.log(error)
+    res
+      .status(500)
+      .json({ success: false, message: `Server error: ${error.message}` })
+  }
+}
+
 export {
   changeAvailability,
   doctorList,
   loginDoctor,
   appointmentsDoctor,
   appointmentComplete,
-  appointmentCancel
+  appointmentCancel,
+  doctorDashboard
 }
