@@ -108,6 +108,10 @@ const AllApointments = () => {
                 <p className='text-red-400 w-full flex justify-center sm:justify-start py-1'>
                   Cancelled
                 </p>
+              ) : item.isCompleted ? (
+                <p className='text-green-500 w-full flex justify-center sm:justify-start py-1'>
+                  Completed
+                </p>
               ) : (
                 <div className='w-full flex justify-center sm:justify-start'>
                   <TooltipProvider delayDuration={0}>

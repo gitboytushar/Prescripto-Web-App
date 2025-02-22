@@ -137,8 +137,12 @@ const Dashboard = () => {
                   </div>
                   {/* cta and appointment status */}
                   {item.cancelled ? (
-                    <p className='text-red-400 text-center text-xs sm:text-base min-w-16 sm:min-w-28 py-1'>
+                    <p className='text-red-400 text-center text-xs sm:text-base min-w-20 sm:min-w-28 py-1'>
                       Cancelled
+                    </p>
+                  ) : item.isCompleted ? (
+                    <p className='text-green-500 text-center text-xs sm:text-base min-w-20 sm:min-w-28 py-1'>
+                      Completed
                     </p>
                   ) : (
                     <div className='min-w-16 sm:min-w-28 flex justify-center'>
