@@ -157,15 +157,15 @@ const DoctorDashboard = () => {
                   {/* appointment status */}
                   <div className='min-w-24'>
                     {item.cancelled ? (
-                      <p className='text-red-400 text-xs sm:text-base w-full flex justify-center sm:justify-start py-1'>
+                      <p className='text-red-400 text-xs sm:text-base w-full flex justify-center py-1'>
                         Cancelled
                       </p>
                     ) : item.isCompleted ? (
-                      <p className='text-green-500 text-xs sm:text-base w-full flex justify-center sm:justify-start py-1'>
+                      <p className='text-green-500 text-xs sm:text-base w-full flex justify-center py-1'>
                         Completed
                       </p>
                     ) : (
-                      <div className='w-full flex gap-2 justify-center sm:justify-start'>
+                      <div className='w-full flex gap-2 justify-center'>
                         {/* ------- cancel btn ------ */}
                         <TooltipProvider delayDuration={0}>
                           <Tooltip>

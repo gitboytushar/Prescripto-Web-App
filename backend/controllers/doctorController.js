@@ -152,6 +152,41 @@ const doctorDashboard = async (req, res) => {
   }
 }
 
+// API to get doctor profile for doctor panel
+const doctorProfile = async (req, res) => {
+  try {
+    const { docId } = req.body
+    const profileData = await doctorModel.findById(docId).select('-password')
+    res.status(201).json({ success: true, profileData })
+  } catch (error) {
+    console.log(error)
+    res
+      .status(500)
+      .json({ success: false, message: `Server error: ${error.message}` })
+  }
+}
+
+// API to update doctor profile for doctor panel
+const updateDoctorProfile = async (req, res) => {
+  try {
+    const { docId, address, fees, experience, available } = req.body
+
+    await doctorModel.findByIdAndUpdate(docId, {
+      address,
+      fees,
+      experience,
+      available
+    })
+
+    res.status(201).json({ success: true, message: 'Profile Updated. 🎉' })
+  } catch (error) {
+    console.log(error)
+    res
+      .status(500)
+      .json({ success: false, message: `Server error: ${error.message}` })
+  }
+}
+
 export {
   changeAvailability,
   doctorList,
@@ -159,5 +194,7 @@ export {
   appointmentsDoctor,
   appointmentComplete,
   appointmentCancel,
-  doctorDashboard
+  doctorDashboard,
+  doctorProfile,
+  updateDoctorProfile
 }
