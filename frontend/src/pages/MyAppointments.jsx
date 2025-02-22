@@ -195,7 +195,7 @@ const MyAppointments = () => {
 
               {/* cta buttons */}
               <div className='flex flex-col gap-2 items-center justify-center'>
-                {!item.cancelled && item.payment && (
+                {!item.cancelled && item.payment && !item.isCompleted && (
                   <button
                     className={`text-sm tracking-wider min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border border-green-600 rounded cursor-not-allowed bg-green-50 text-green-600 ${
                       !animatedAppointments.has(item._id)
@@ -213,7 +213,7 @@ const MyAppointments = () => {
                     Paid
                   </button>
                 )}
-                {!item.cancelled && !item.payment && (
+                {!item.cancelled && !item.payment && !item.isCompleted && (
                   <button
                     onClick={() => appointmentRazorpay(item._id)}
                     className='text-sm text-center min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border rounded bg-primary text-white hover:opacity-90 active:scale-[90%] transition-all duration-200 ease-in-out'
@@ -221,7 +221,7 @@ const MyAppointments = () => {
                     Pay Online
                   </button>
                 )}
-                {!item.cancelled && (
+                {!item.cancelled && !item.isCompleted && (
                   <button
                     onClick={() => cancelAppointment(item._id)}
                     className='text-sm text-stone-600 text-center min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border border-stone-500 hover:border-transparent rounded hover:bg-red-600 hover:text-white active:scale-[90%] transition-all duration-200 ease-in-out'
@@ -232,6 +232,11 @@ const MyAppointments = () => {
                 {item.cancelled && (
                   <button className='text-sm tracking-wider min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border border-red-300 rounded cursor-not-allowed bg-red-50 text-red-500 transition-all duration-200 ease-in-out'>
                     Cancelled
+                  </button>
+                )}
+                {!item.cancelled && item.isCompleted && (
+                  <button className='text-sm tracking-wider min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border border-green-300 rounded cursor-not-allowed bg-green-50 text-green-500 transition-all duration-200 ease-in-out'>
+                    Completed
                   </button>
                 )}
               </div>
