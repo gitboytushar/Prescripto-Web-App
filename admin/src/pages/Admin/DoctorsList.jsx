@@ -6,6 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip'
+import { motion } from 'motion/react'
 
 const DoctorsList = () => {
   const { doctors, aToken, getAllDoctors, changeAvailability } =
@@ -25,9 +26,12 @@ const DoctorsList = () => {
 
       <div className='w-full flex flex-row items-center justify-center sm:justify-start flex-wrap gap-2 p-1 sm:gap-5 sm:max-h-[81.5vh] sm:overflow-y-scroll doctorlist-scrollbar'>
         {doctors.map((item, index) => (
-          <div
+          <motion.div
             className='border border-primary/50 rounded-md w-[45vw] sm:w-56 overflow-hidden group hover:scale-[101%] transition-all duration-200 ease-in bg-primary/10'
             key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.1, delay: index * 0.05 }}
           >
             <img
               className='bg-primary/10 group-hover:bg-primary/50 transition-all duration-200 ease-in'
@@ -64,7 +68,7 @@ const DoctorsList = () => {
                 <p className='text-sm font-medium tracking-wide'>Available</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

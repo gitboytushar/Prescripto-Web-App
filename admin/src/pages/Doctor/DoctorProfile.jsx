@@ -82,7 +82,7 @@ const DoctorProfile = () => {
           Profile Details
         </h1>
 
-        <div className='flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full'>
+        <div className='flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.38s] motion-ease-spring-bouncier'>
           <div className='bg-gray-100 min-w-[65vw] flex flex-col sm:flex-row items-center sm:items-start justify-center gap-4 p-6 sm:p-5 border rounded text-sm sm:text-xl'>
             {/* dp */}
             <div className='w-[80vw] sm:w-2/5'>

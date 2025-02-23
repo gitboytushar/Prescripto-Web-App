@@ -109,7 +109,7 @@ const AddDoctor = () => {
         Doctor Details
       </p>
 
-      <div className='flex flex-col items-center sm:items-start justify-center gap-4 w-full'>
+      <div className='flex flex-col items-center sm:items-start justify-center gap-4 w-full motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.38s] motion-ease-spring-bouncier'>
         <div>
           <label htmlFor='doc-img'>
             <div className='min-w-44 p-2.5 rounded border border-gray-300 bg-gray-100 text-gray-500 flex flex-col items-center justify-center gap-2 cursor-crosshair mt-1 sm:mt-0 mb-1 sm:mb-0 active:scale-[95%] transition-all duration-75 ease-in'>

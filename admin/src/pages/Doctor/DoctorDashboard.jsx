@@ -1,7 +1,7 @@
 import { assets } from '@/assets/assets'
 import { AppContext } from '@/context/AppContext'
 import { DoctorContext } from '@/context/DoctorContext'
-import { CalendarDays, Check, X } from 'lucide-react'
+import { CalendarDays, Check, Loader2, X } from 'lucide-react'
 import React, { useContext, useEffect, useState } from 'react'
 import {
   Tooltip,
@@ -20,14 +20,26 @@ const DoctorDashboard = () => {
   } = useContext(DoctorContext)
 
   const [selectedImage, setSelectedImage] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const { slotDateFormat, currencySymbol } = useContext(AppContext)
 
   useEffect(() => {
     if (dToken) {
-      getDashData()
+      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 400))
+      const dataFetch = getDashData()
+
+      Promise.all([minLoadingTime, dataFetch]).then(() => setIsLoading(false))
     }
   }, [dToken])
+
+  if (isLoading) {
+    return (
+      <div className='w-full sm:w-1/2 h-[calc(100vh-80px)] flex items-center justify-center'>
+        <Loader2 className='size-14 animate-spin text-primary' />
+      </div>
+    )
+  }
 
   return (
     dashData && (
@@ -48,7 +60,7 @@ const DoctorDashboard = () => {
           </div>
         )}
         {/* Dynamic Title - Greet Doctor based on dayTime */}
-        <h1 className='text-2xl mt-3 sm:mt-0 sm:text-3xl font-semibold px-1 tracking-wide text-primary select-none text-center sm:text-start'>
+        <h1 className='text-2xl mt-3 sm:mt-0 sm:text-3xl font-semibold px-1 tracking-wide text-primary select-none text-center sm:text-start motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.38s] motion-ease-spring-bouncier'>
           {(() => {
             const hours = new Date().getHours()
             let greeting
@@ -63,7 +75,7 @@ const DoctorDashboard = () => {
             )
           })()}
         </h1>
-        <div className='flex flex-col items-stretch gap-5'>
+        <div className='flex flex-col items-stretch gap-5 motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.38s] motion-ease-spring-bouncier'>
           {/* ----------- glimpse ------------ */}
           <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
             {/* doctors */}
