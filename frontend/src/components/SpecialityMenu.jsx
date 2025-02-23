@@ -13,11 +13,11 @@ const SpecialityMenu = () => {
         Scroll through our list of trusted doctors and schedule your required
         appointment quickly.
       </p>
-      <div className='flex sm:justify-center gap-4 lg:gap-10 pt-5 w-full overscroll-y-none overflow-x-scroll'>
+      <div className='flex sm:justify-center gap-4 lg:gap-10 pt-5 w-full overflow-y-hidden overflow-x-scroll'>
         {specialityData.map((item, index) => (
           <Link
             onClick={() => window.scrollTo(0, 0)}
-            className='flex flex-col items-center text-xs md:text-sm cursor-pointer flex-shrink-0 hover:scale-105 hover:text-primary transition-all duration-200 ease-linear'
+            className='flex flex-col items-center text-xs md:text-sm cursor-pointer flex-shrink-0 hover:scale-105 hover:text-primary transition-all duration-200 ease-in'
             key={index}
             to={`/doctors/${item.speciality}`}
           >

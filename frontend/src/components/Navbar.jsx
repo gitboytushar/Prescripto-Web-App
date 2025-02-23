@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react'
 import { AppContext } from '../context/AppContext'
 import { toast } from 'react-toastify'
+import { WordRotate } from './WordRotateComp'
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -58,6 +59,18 @@ const Navbar = () => {
     }
   }, [showMenu])
 
+  // handle user login btn - all clicks
+  const handleAuthNavigation = type => {
+    const currentPath = window.location.pathname
+
+    if (currentPath === '/login') {
+      navigate(`/login?type=${type}`, { replace: true })
+      window.location.reload()
+    } else {
+      navigate(`/login?type=${type}`)
+    }
+  }
+
   return (
     <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-300'>
       <img
@@ -84,6 +97,12 @@ const Navbar = () => {
         <NavLink to={'/contact'}>
           <li className='py-1'>CONTACT</li>
           <hr className='border-none outline-none h-0.5 bg-primary w-full rounded-full m-auto hidden motion-preset-pop motion-duration-500' />
+        </NavLink>
+        {/* go to admin-doctor panel */}
+        <NavLink to={'http://localhost:5174/'} target='_blank'>
+          <button className='px-3 py-2 w-fit border border-gray-200 bg-gray-100 text-black rounded flex items-center gap-1'>
+            <WordRotate words={['Admin', 'Doctor']} /> Login
+          </button>
         </NavLink>
       </ul>
 
@@ -143,32 +162,32 @@ const Navbar = () => {
           ) : (
             <div className='flex items-center justify-center gap-1.5'>
               <button
-                onClick={() => navigate('/login?type=login')}
-                className='bg-white text-primary border border-primary px-4 py-2 rounded font-normal tracking-wide hidden sm:block hover:drop-shadow-md transition-all duration-200 ease-in-out'
+                onClick={() => handleAuthNavigation('login')}
+                className='border border-gray-200 bg-gray-100 text-black px-4 py-2 rounded font-normal tracking-wide hidden sm:block active:scale-75 transition-all duration-200 ease-in-out'
               >
                 Sign In
               </button>
               <button
-                onClick={() => navigate('/login?type=signup')}
-                className='bg-primary border border-primary text-white px-4 py-2 rounded font-normal tracking-wide hidden sm:block hover:opacity-90 hover:drop-shadow-md transition-all duration-200 ease-in-out'
+                onClick={() => handleAuthNavigation('signup')}
+                className='bg-primary border border-primary text-white px-4 py-2 rounded font-normal tracking-wide hidden sm:block active:scale-75 transition-all duration-200 ease-in-out'
               >
                 Sign Up
               </button>
             </div>
           )}
         </div>
-        {/* sign up btn for mobile */}
+        {/* ------------ sign up btn on mobile ------------ */}
         {!token && (
           <>
             <button
-              onClick={() => navigate('/login?type=signup')}
+              onClick={() => handleAuthNavigation('signup')}
               className='bg-primary border border-primary text-white px-2.5 py-1.5 mr-3 rounded-[3px] font-normal text-xs block sm:hidden active:scale-[96%] transition-transform duration-100 ease-in'
             >
               Sign Up
             </button>
           </>
         )}
-        {/* --------- mobile menu -------- */}
+        {/* --------------------------------- mobile menu ---------------------------- */}
         <div>
           {/* bar icon */}
           <Menu
@@ -176,21 +195,31 @@ const Navbar = () => {
             size={25}
             className='md:hidden text-primary'
           />
+          {/* overlay */}
+          {showMenu && (
+            <div
+              className='fixed inset-0 bg-black/20 z-10'
+              onClick={() => setShowMenu(false)}
+            />
+          )}
           {/* menu */}
           <div
             className={`menu-container ${
               showMenu
-                ? 'fixed w-fit h-fit pb-4 pl-12 pr-4 rounded-bl-md flex motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.53s] motion-ease-spring-snappy'
-                : 'h-0 w-0 hidden'
-            } right-0 top-0 z-20 overflow-hidden bg-white/60 backdrop-blur-xl flex-col items-end justify-start pt-5 px-2 shadow-md`}
+                ? 'fixed w-full h-fit py-10 px-4 rounded-b-2xl flex motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.53s] motion-ease-spring-snappy'
+                : 'hidden'
+            } inset-0 top-0 z-20 overflow-hidden bg-white/90 backdrop-blur-xl flex-col items-center justify-center pt-5 px-2 shadow-xl`}
           >
             {/* close icon */}
-            <X
-              size={25}
-              onClick={() => setShowMenu(false)}
-              className='mt-1.5 text-primary'
-            />
-            <ul className='mt-12 uppercase flex flex-col items-end gap-5 text-base font-medium min-w-fit select-none'>
+            <div className='flex w-full items-center justify-end'>
+              <X
+                size={30}
+                onClick={() => setShowMenu(false)}
+                className='mr-2 text-primary'
+              />
+            </div>
+            {/* navigation links */}
+            <ul className='mt-10 uppercase flex flex-col-reverse items-center gap-7 text-base font-medium min-w-full select-none'>
               <NavLink onClick={() => setShowMenu(false)} to={'/'}>
                 <p>Home</p>
                 <hr className='border-none outline-none h-0.5 bg-primary w-full rounded-full m-auto hidden' />
@@ -206,6 +235,18 @@ const Navbar = () => {
               <NavLink onClick={() => setShowMenu(false)} to={'/contact'}>
                 <p>Contact</p>
                 <hr className='border-none outline-none h-0.5 bg-primary w-full rounded-full m-auto hidden' />
+              </NavLink>
+
+              {/* go to Admin/doctor panel login */}
+              <NavLink to={'http://localhost:5174/'} target='_blank'>
+                <button className='mb-6 min-w-[124px] h-10 bg-primary text-white font-normal rounded relative'>
+                  <span className='absolute top-1/2 -translate-y-1/2 left-3'>
+                    <WordRotate words={['Admin', 'Doctor']} />
+                  </span>
+                  <span className='absolute top-1/2 -translate-y-1/2 right-3'>
+                    Login
+                  </span>
+                </button>
               </NavLink>
             </ul>
           </div>

@@ -19,7 +19,6 @@ const Login = () => {
   const onSubmitHandler = async event => {
     event.preventDefault()
 
-    // new user or sign in api call from frontend
     try {
       if (state === 'Sign Up') {
         const { data } = await axios.post(backendUrl + '/api/user/register', {
@@ -30,9 +29,6 @@ const Login = () => {
         if (data.success) {
           localStorage.setItem('token', data.token)
           setToken(data.token)
-        } else {
-          console.log(data.message)
-          toast.error(data.message)
         }
       } else {
         const { data } = await axios.post(backendUrl + '/api/user/login', {
@@ -42,14 +38,14 @@ const Login = () => {
         if (data.success) {
           localStorage.setItem('token', data.token)
           setToken(data.token)
-        } else {
-          console.log(data.message)
-          toast.error(data.message)
         }
       }
     } catch (error) {
-      console.log(error)
-      toast.error(error.message)
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.message)
+      } else {
+        toast.error('An error occurred. Please try again.')
+      }
     }
   }
 

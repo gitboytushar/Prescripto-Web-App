@@ -18,18 +18,27 @@ const registerUser = async (req, res) => {
         .json({ success: false, message: 'Missing Details...' })
     }
 
+    // Check if user already exists
+    const existingUser = await userModel.findOne({ email })
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email is already registered! Login instead.'
+      })
+    }
+
     //   validating email format
     if (!validator.isEmail(email)) {
       return res
         .status(400)
-        .json({ success: false, message: 'Enter a Valid Email.' })
+        .json({ success: false, message: 'Enter a Valid Email !!' })
     }
 
     //   validating strong password
     if (password.length < 8) {
       return res.status(400).json({
         success: false,
-        message: 'Password must be Strong (Min. 8 characters)'
+        message: 'Password must be Strong!'
       })
     }
 
@@ -51,7 +60,10 @@ const registerUser = async (req, res) => {
     res.status(201).json({ success: true, token })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ success: false, message: error.message })
+    res.status(500).json({
+      success: false,
+      message: 'Registration failed! Try again.'
+    })
   }
 }
 
@@ -77,25 +89,30 @@ const loginUser = async (req, res) => {
     const user = await userModel.findOne({ email })
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, message: 'User Not Found !!!' })
+      return res.status(400).json({
+        success: false,
+        message: 'Account not found! Try Again.'
+      })
     }
 
     // compare user password with saved password in database
     const isMatch = await bcrypt.compare(password, user.password)
 
-    if (isMatch) {
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
-      res.status(200).json({ success: true, token })
-    } else {
-      return res
-        .status(400)
-        .json({ success: false, message: 'Invalid Credentials' })
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'Incorrect Credentials! Try again.'
+      })
     }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+    res.status(200).json({ success: true, token })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ success: false, message: error.message })
+    res.status(500).json({
+      success: false,
+      message: 'Login failed! Try again.'
+    })
   }
 }
 
