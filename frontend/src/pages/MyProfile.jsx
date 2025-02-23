@@ -80,7 +80,7 @@ const MyProfile = () => {
 
   return (
     userData && (
-      <div className='flex flex-col items-end justify-center gap-3 min-h-[50vh] md:mt-12 w-full p-0 md:px-64'>
+      <div className='flex flex-col items-end justify-center gap-3 min-h-[50vh] md:mt-12 w-full p-0 md:px-64 motion-translate-x-in-[0%] motion-translate-y-in-[-10%]'>
         {/* top section */}
         <div className='flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 w-full py-5 md:py-6 md:px-5 bg-gray-100 rounded-md'>
           {/* user profile and name */}

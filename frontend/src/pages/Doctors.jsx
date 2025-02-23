@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 import { ChevronDown } from 'lucide-react'
+import { motion } from 'motion/react'
 
 const Doctors = () => {
   const { speciality } = useParams()
   const [filterDoc, setFilterDoc] = useState([])
   const [showFilter, setShowFilter] = useState(false)
+  const [animationKey, setAnimationKey] = useState(0)
+
   const navigate = useNavigate()
 
   const scrollToTop = () => {
@@ -27,6 +30,18 @@ const Doctors = () => {
   useEffect(() => {
     applyFilter()
   }, [doctors, speciality])
+
+  const handleSpecialityClick = newSpeciality => {
+    setAnimationKey(prev => prev + 1)
+
+    if (speciality === newSpeciality) {
+      navigate('/doctors')
+    } else {
+      navigate(`/doctors/${newSpeciality}`)
+    }
+
+    scrollToTop()
+  }
 
   return (
     <div className='min-h-screen'>
@@ -56,12 +71,7 @@ const Doctors = () => {
           }`}
         >
           <p
-            onClick={() => {
-              speciality === 'General physician'
-                ? navigate('/doctors')
-                : navigate('/doctors/General physician')
-              scrollToTop()
-            }}
+            onClick={() => handleSpecialityClick('General physician')}
             className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'General physician'
                 ? 'bg-primary border-primary text-white'
@@ -71,12 +81,7 @@ const Doctors = () => {
             General physician
           </p>
           <p
-            onClick={() => {
-              speciality === 'Gynecologist'
-                ? navigate('/doctors')
-                : navigate('/doctors/Gynecologist')
-              scrollToTop()
-            }}
+            onClick={() => handleSpecialityClick('Gynecologist')}
             className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Gynecologist'
                 ? 'bg-primary border-primary text-white'
@@ -86,12 +91,7 @@ const Doctors = () => {
             Gynecologist
           </p>
           <p
-            onClick={() => {
-              speciality === 'Dermatologist'
-                ? navigate('/doctors')
-                : navigate('/doctors/Dermatologist')
-              scrollToTop()
-            }}
+            onClick={() => handleSpecialityClick('Dermatologist')}
             className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Dermatologist'
                 ? 'bg-primary border-primary text-white'
@@ -101,12 +101,7 @@ const Doctors = () => {
             Dermatologist
           </p>
           <p
-            onClick={() => {
-              speciality === 'Pediatricians'
-                ? navigate('/doctors')
-                : navigate('/doctors/Pediatricians')
-              scrollToTop()
-            }}
+            onClick={() => handleSpecialityClick('Pediatricians')}
             className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Pediatricians'
                 ? 'bg-primary border-primary text-white'
@@ -116,12 +111,7 @@ const Doctors = () => {
             Pediatricians
           </p>
           <p
-            onClick={() => {
-              speciality === 'Neurologist'
-                ? navigate('/doctors')
-                : navigate('/doctors/Neurologist')
-              scrollToTop()
-            }}
+            onClick={() => handleSpecialityClick('Neurologist')}
             className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Neurologist'
                 ? 'bg-primary border-primary text-white'
@@ -131,12 +121,7 @@ const Doctors = () => {
             Neurologist
           </p>
           <p
-            onClick={() => {
-              speciality === 'Gastroenterologist'
-                ? navigate('/doctors')
-                : navigate('/doctors/Gastroenterologist')
-              scrollToTop()
-            }}
+            onClick={() => handleSpecialityClick('Gastroenterologist')}
             className={`w-[230px] md:w-auto pl-3 py-2.5 pr-16 border border-gray-300 hover:border-primary rounded-md md:rounded-lg transition-all duration-100 ease-linear cursor-pointer select-none ${
               speciality === 'Gastroenterologist'
                 ? 'bg-primary border-primary text-white'
@@ -148,13 +133,16 @@ const Doctors = () => {
         </div>
         <div className='w-full grid grid-cols-auto lg:grid-cols-4 gap-4'>
           {filterDoc.map((item, index) => (
-            <div
+            <motion.div
+              key={`${animationKey}-${index}`}
               onClick={() => {
                 navigate(`/appointment/${item._id}`)
                 scrollToTop()
               }}
               className='border border-blue-200 rounded-lg sm:rounded-xl overflow-hidden cursor-pointer hover:scale-[102%] transition-all duration-200 ease-linear group'
-              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.1, delay: index * 0.1 }}
             >
               <img
                 className='bg-blue-50 group-hover:bg-blue-100 transition-colors duration-200 ease-in'
@@ -177,7 +165,7 @@ const Doctors = () => {
                 <p className='text-gray-900 text-lg font-medium'>{item.name}</p>
                 <p className='text-gray-600 text-sm'>{item.speciality}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

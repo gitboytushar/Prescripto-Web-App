@@ -32,7 +32,7 @@ const Contact = () => {
           <p className='text-gray-500'>
             Learn more about our team and Job openings.
           </p>
-          <button className='border border-black px-8 py-4 text-sm hover:bg-black hover:text-white transition-all duration-300 ease-in-out rounded active:scale-95'>
+          <button className='border border-black px-8 py-4 text-sm hover:bg-black hover:text-white transition-all duration-200 ease-in-out rounded active:scale-95 cursor-not-allowed'>
             Explore Jobs
           </button>
         </div>
