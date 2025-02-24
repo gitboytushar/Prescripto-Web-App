@@ -99,7 +99,10 @@ const Navbar = () => {
           <hr className='border-none outline-none h-0.5 bg-primary w-full rounded-full m-auto hidden motion-preset-pop motion-duration-500' />
         </NavLink>
         {/* go to admin-doctor panel */}
-        <NavLink to={'http://localhost:5174/'} target='_blank'>
+        <NavLink
+          to={'https://prescripto-admin-ka03.onrender.com'}
+          target='_blank'
+        >
           <button className='px-3 py-2 w-fit border border-gray-200 bg-gray-100 text-black rounded flex items-center gap-1'>
             <WordRotate words={['Admin', 'Doctor']} /> Login
           </button>
@@ -238,7 +241,10 @@ const Navbar = () => {
               </NavLink>
 
               {/* go to Admin/doctor panel login */}
-              <NavLink to={'http://localhost:5174/'} target='_blank'>
+              <NavLink
+                to={'https://prescripto-admin-ka03.onrender.com'}
+                target='_blank'
+              >
                 <button className='mb-6 min-w-[124px] h-10 bg-primary text-white font-normal rounded relative'>
                   <span className='absolute top-1/2 -translate-y-1/2 left-3'>
                     <WordRotate words={['Admin', 'Doctor']} />
