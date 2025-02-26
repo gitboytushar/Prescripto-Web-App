@@ -5,17 +5,20 @@ import { AdminContext } from '../context/AdminContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { DoctorContext } from '@/context/DoctorContext'
+import { Loader } from 'lucide-react'
 
 const Login = () => {
   const [state, setState] = useState('Admin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const { setAtoken, backendUrl } = useContext(AdminContext)
   const { setDToken } = useContext(DoctorContext)
 
   const onSubmitHandler = async event => {
     event.preventDefault()
+    setLoading(true)
 
     try {
       if (state === 'Admin') {
@@ -45,6 +48,8 @@ const Login = () => {
     } catch (error) {
       console.error('Login failed', error)
       alert('Login failed. Please check your credentials and try again.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -95,8 +100,21 @@ const Login = () => {
           </div>
 
           <div className='flex flex-col gap-4 mt-1 w-full items-stretch text-center text-neutral-200'>
-            <button className='bg-primary text-white hover:opacity-90 transition-opacity duration-150 ease-linear w-full py-2 rounded-md text-base'>
-              Login
+            <button
+              className={`bg-primary text-white w-full h-12 rounded-md text-base ${
+                loading
+                  ? 'cursor-not-allowed'
+                  : 'hover:opacity-90 transition-opacity duration-150 ease-linear'
+              }`}
+              disabled={loading}
+            >
+              {loading ? (
+                <div className='flex items-center justify-center'>
+                  <Loader size={25} className='animate-spin' />
+                </div>
+              ) : (
+                'Login'
+              )}
             </button>
             {/* button to switch between signup and login forms */}
             {state === 'Admin' ? (
