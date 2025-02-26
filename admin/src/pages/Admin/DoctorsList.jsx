@@ -1,5 +1,5 @@
 import { AdminContext } from '@/context/AdminContext'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Tooltip,
   TooltipContent,
@@ -7,16 +7,29 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 import { motion } from 'motion/react'
+import { Loader2 } from 'lucide-react'
 
 const DoctorsList = () => {
   const { doctors, aToken, getAllDoctors, changeAvailability } =
     useContext(AdminContext)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (aToken) {
-      getAllDoctors()
+      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 100))
+      const dataFetch = getAllDoctors()
+
+      Promise.all([minLoadingTime, dataFetch]).then(() => setIsLoading(false))
     }
   }, [aToken])
+
+  if (isLoading) {
+    return (
+      <div className='w-full h-[calc(100vh-80px)] flex items-center justify-center'>
+        <Loader2 className='size-14 animate-spin text-primary' />
+      </div>
+    )
+  }
 
   return (
     <div className='m-2 w-full sm:w-[80vw] flex flex-col items-center sm:items-start justify-center pb-2 gap-4 sm:p-4 bg-gray-50 rounded'>

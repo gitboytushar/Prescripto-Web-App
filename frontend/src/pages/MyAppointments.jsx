@@ -13,6 +13,8 @@ const MyAppointments = () => {
   const [animatedAppointments, setAnimatedAppointments] = useState(new Set())
   const [isLoading, setIsLoading] = useState(true)
   const [loadingProgress, setLoadingProgress] = useState(0)
+  const [loadingPayment, setLoadingPayment] = useState(false)
+  const [loadingCancel, setLoadingCancel] = useState(false)
 
   const navigate = useNavigate()
 
@@ -81,6 +83,7 @@ const MyAppointments = () => {
   }
 
   const cancelAppointment = async appointmentId => {
+    setLoadingCancel(true)
     try {
       const { data } = await axios.post(
         backendUrl + '/api/user/cancel-appointment',
@@ -97,6 +100,8 @@ const MyAppointments = () => {
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.message)
+    } finally {
+      setLoadingCancel(false)
     }
   }
 
@@ -124,15 +129,33 @@ const MyAppointments = () => {
         } catch (error) {
           console.log(error)
           toast.error(error.message)
+        } finally {
+          setLoadingPayment(false)
         }
+      },
+      // if user cancels the payment gateway to return back to our site
+      modal: {
+        ondismiss: function () {
+          setLoadingPayment(false)
+          toast.info('Payment cancelled')
+        }
+      },
+      prefill: {
+        name: 'Patient Name',
+        email: 'patient@example.com'
       }
     }
 
     const rzp = new window.Razorpay(options)
+    rzp.on('payment.failed', function (response) {
+      toast.error('Payment failed')
+      setLoadingPayment(false)
+    })
     rzp.open()
   }
 
   const appointmentRazorpay = async appointmentId => {
+    setLoadingPayment(true)
     try {
       const { data } = await axios.post(
         backendUrl + '/api/user/payment-razorpay',
@@ -145,6 +168,7 @@ const MyAppointments = () => {
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.message)
+      setLoadingPayment(false)
     }
   }
 
@@ -258,17 +282,39 @@ const MyAppointments = () => {
                     {!item.cancelled && !item.payment && !item.isCompleted && (
                       <button
                         onClick={() => appointmentRazorpay(item._id)}
-                        className='text-sm text-center min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border rounded bg-primary text-white hover:opacity-90 active:scale-[90%] transition-all duration-200 ease-in-out'
+                        className={`text-sm text-center min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border rounded bg-primary text-white transition-all duration-200 ease-in-out ${
+                          loadingPayment
+                            ? 'opacity-50 cursor-not-allowed flex items-center justify-center gap-3'
+                            : 'hover:opacity-90 active:scale-[90%]'
+                        }`}
+                        disabled={loadingPayment}
                       >
-                        Pay Online
+                        <span className='select-none'>
+                          {loadingPayment ? 'Opening Razorpay' : 'Pay Online'}
+                        </span>
+                        {loadingPayment && (
+                          <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
+                        )}
                       </button>
                     )}
                     {!item.cancelled && !item.isCompleted && (
                       <button
                         onClick={() => cancelAppointment(item._id)}
-                        className='text-sm text-stone-600 text-center min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border border-stone-500 hover:border-transparent rounded hover:bg-red-600 hover:text-white active:scale-[90%] transition-all duration-200 ease-in-out'
+                        className={`text-sm text-stone-600 text-center min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border border-stone-500 rounded transition-all duration-200 ease-in-out ${
+                          loadingCancel
+                            ? 'opacity-50 cursor-not-allowed flex items-center justify-center gap-3'
+                            : 'hover:border-transparent hover:bg-red-600 hover:text-white active:scale-[90%]'
+                        }`}
+                        disabled={loadingCancel}
                       >
-                        Cancel Appointment
+                        <span className='select-none'>
+                          {loadingCancel
+                            ? 'Cancelling...'
+                            : 'Cancel Appointment'}
+                        </span>
+                        {loadingCancel && (
+                          <div className='w-4 h-4 border-2 border-stone-500 border-t-transparent rounded-full animate-spin'></div>
+                        )}
                       </button>
                     )}
                     {item.cancelled && (

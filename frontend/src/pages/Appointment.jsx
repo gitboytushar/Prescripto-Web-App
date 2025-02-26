@@ -20,6 +20,7 @@ const Appointment = () => {
   const [docSlots, setDocSlots] = useState([])
   const [slotIndex, setSlotIndex] = useState(0)
   const [slotTime, setSlotTime] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const fetchDocInfo = async () => {
     const docInfo = doctors.find(doc => doc._id === docId)
@@ -94,6 +95,8 @@ const Appointment = () => {
       return navigate('/login')
     }
 
+    setLoading(true)
+
     try {
       const date = docSlots[slotIndex][0].datetime
       let day = date.getDate().toString().padStart(2, '0')
@@ -126,6 +129,8 @@ const Appointment = () => {
       } else {
         toast.error('An unexpected error occurred. Please try again.')
       }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -254,11 +259,17 @@ const Appointment = () => {
               slotTime
                 ? 'bg-primary text-white cursor-pointer active:scale-[96%] transition-all duration-100 ease-in'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-            disabled={!slotTime}
+            } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={!slotTime || loading}
           >
-            <span className='select-none'>Confirm Booking</span>
-            <Check size={18} />
+            <span className='select-none'>
+              {loading ? 'In Process...' : 'Confirm Booking'}
+            </span>
+            {loading ? (
+              <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
+            ) : (
+              <Check size={18} />
+            )}
           </button>
         </div>
 

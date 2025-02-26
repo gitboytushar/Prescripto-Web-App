@@ -26,7 +26,7 @@ const DoctorDashboard = () => {
 
   useEffect(() => {
     if (dToken) {
-      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 400))
+      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 100))
       const dataFetch = getDashData()
 
       Promise.all([minLoadingTime, dataFetch]).then(() => setIsLoading(false))

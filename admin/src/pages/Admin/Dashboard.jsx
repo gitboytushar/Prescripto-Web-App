@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (aToken) {
-      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 200))
+      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 100))
       const dataFetch = getDashData()
 
       Promise.all([minLoadingTime, dataFetch]).then(() => setIsLoading(false))
