@@ -13,8 +13,8 @@ const MyAppointments = () => {
   const [animatedAppointments, setAnimatedAppointments] = useState(new Set())
   const [isLoading, setIsLoading] = useState(true)
   const [loadingProgress, setLoadingProgress] = useState(0)
-  const [loadingPayment, setLoadingPayment] = useState(false)
-  const [loadingCancel, setLoadingCancel] = useState(false)
+  const [loadingPayment, setLoadingPayment] = useState({})
+  const [loadingCancel, setLoadingCancel] = useState({})
 
   const navigate = useNavigate()
 
@@ -83,7 +83,7 @@ const MyAppointments = () => {
   }
 
   const cancelAppointment = async appointmentId => {
-    setLoadingCancel(true)
+    setLoadingCancel(prev => ({ ...prev, [appointmentId]: true }))
     try {
       const { data } = await axios.post(
         backendUrl + '/api/user/cancel-appointment',
@@ -101,11 +101,11 @@ const MyAppointments = () => {
       console.log(error)
       toast.error(error.response.data.message)
     } finally {
-      setLoadingCancel(false)
+      setLoadingCancel(prev => ({ ...prev, [appointmentId]: false }))
     }
   }
 
-  const initPay = order => {
+  const initPay = (order, appointmentId) => {
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: order.amount,
@@ -130,13 +130,13 @@ const MyAppointments = () => {
           console.log(error)
           toast.error(error.message)
         } finally {
-          setLoadingPayment(false)
+          setLoadingPayment(prev => ({ ...prev, [appointmentId]: false }))
         }
       },
       // if user cancels the payment gateway to return back to our site
       modal: {
         ondismiss: function () {
-          setLoadingPayment(false)
+          setLoadingPayment(prev => ({ ...prev, [appointmentId]: false }))
           toast.info('Payment cancelled')
         }
       },
@@ -149,13 +149,13 @@ const MyAppointments = () => {
     const rzp = new window.Razorpay(options)
     rzp.on('payment.failed', function (response) {
       toast.error('Payment failed')
-      setLoadingPayment(false)
+      setLoadingPayment(prev => ({ ...prev, [appointmentId]: false }))
     })
     rzp.open()
   }
 
   const appointmentRazorpay = async appointmentId => {
-    setLoadingPayment(true)
+    setLoadingPayment(prev => ({ ...prev, [appointmentId]: true }))
     try {
       const { data } = await axios.post(
         backendUrl + '/api/user/payment-razorpay',
@@ -163,12 +163,12 @@ const MyAppointments = () => {
         { headers: { token } }
       )
       if (data.success) {
-        initPay(data.order)
+        initPay(data.order, appointmentId)
       }
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.message)
-      setLoadingPayment(false)
+      setLoadingPayment(prev => ({ ...prev, [appointmentId]: false }))
     }
   }
 
@@ -283,16 +283,18 @@ const MyAppointments = () => {
                       <button
                         onClick={() => appointmentRazorpay(item._id)}
                         className={`text-sm text-center min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border rounded bg-primary text-white transition-all duration-200 ease-in-out ${
-                          loadingPayment
+                          loadingPayment[item._id]
                             ? 'opacity-50 cursor-not-allowed flex items-center justify-center gap-3'
                             : 'hover:opacity-90 active:scale-[90%]'
                         }`}
-                        disabled={loadingPayment}
+                        disabled={loadingPayment[item._id]}
                       >
                         <span className='select-none'>
-                          {loadingPayment ? 'Opening Razorpay' : 'Pay Online'}
+                          {loadingPayment[item._id]
+                            ? 'Opening Razorpay'
+                            : 'Pay Online'}
                         </span>
-                        {loadingPayment && (
+                        {loadingPayment[item._id] && (
                           <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
                         )}
                       </button>
@@ -301,18 +303,18 @@ const MyAppointments = () => {
                       <button
                         onClick={() => cancelAppointment(item._id)}
                         className={`text-sm text-stone-600 text-center min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border border-stone-500 rounded transition-all duration-200 ease-in-out ${
-                          loadingCancel
+                          loadingCancel[item._id]
                             ? 'opacity-50 cursor-not-allowed flex items-center justify-center gap-3'
                             : 'hover:border-transparent hover:bg-red-600 hover:text-white active:scale-[90%]'
                         }`}
-                        disabled={loadingCancel}
+                        disabled={loadingCancel[item._id]}
                       >
                         <span className='select-none'>
-                          {loadingCancel
+                          {loadingCancel[item._id]
                             ? 'Cancelling...'
                             : 'Cancel Appointment'}
                         </span>
-                        {loadingCancel && (
+                        {loadingCancel[item._id] && (
                           <div className='w-4 h-4 border-2 border-stone-500 border-t-transparent rounded-full animate-spin'></div>
                         )}
                       </button>

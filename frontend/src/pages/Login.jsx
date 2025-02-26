@@ -3,6 +3,7 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { Loader } from 'lucide-react'
 
 const Login = () => {
   const { backendUrl, token, setToken } = useContext(AppContext)
@@ -14,10 +15,12 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
+  const [loading, setLoading] = useState(false)
 
   // form submit handler
   const onSubmitHandler = async event => {
     event.preventDefault()
+    setLoading(true)
 
     try {
       if (state === 'Sign Up') {
@@ -46,6 +49,8 @@ const Login = () => {
       } else {
         toast.error('An error occurred. Please try again.')
       }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -75,11 +80,12 @@ const Login = () => {
           {/* form title */}
           <div className='flex flex-col items-stretch gap-1 w-full text-center'>
             <p className='text-2xl font-semibold'>
-              {state === 'Sign Up' ? 'New Registration' : 'User Login'}
+              {state === 'Sign Up' ? 'Create Account' : 'User Login'}
             </p>
             <p className='text-zinc-500'>
-              Please {state === 'Sign Up' ? 'sign up' : 'log in'} to book an
-              appointment.
+              {state === 'Sign Up'
+                ? 'Sign up to book an appointment.'
+                : 'Welcome back, Log in to get started.'}
             </p>
           </div>
 
@@ -121,13 +127,29 @@ const Login = () => {
           </div>
 
           <div className='flex flex-col gap-4 w-full items-stretch text-center'>
-            <button
-              type='submit'
-              className='bg-primary text-white w-full py-2 rounded-md text-base hover:opacity-90 active:scale-[97%] transition-all duration-100 ease-in'
-            >
-              {state === 'Sign Up' ? 'Submit' : 'Proceed'}
-            </button>
-            {/* button to switch between signup and login forms */}
+            {/* submit form */}
+            <div className='flex w-full items-center justify-center'>
+              <button
+                type='submit'
+                className={`flex items-center justify-center gap-4 bg-primary text-white w-full h-12 rounded-md text-base ${
+                  loading
+                    ? 'cursor-not-allowed'
+                    : 'hover:opacity-90 active:scale-[90%] transition-all duration-150 ease-in-out'
+                }`}
+                disabled={loading}
+              >
+                {loading ? (
+                  <div className='flex items-center justify-center'>
+                    <Loader size={25} className='animate-spin' />
+                  </div>
+                ) : (
+                  <span className='select-none'>
+                    {state === 'Sign Up' ? 'Sign Up' : 'Log In'}
+                  </span>
+                )}
+              </button>
+            </div>
+            {/* toggle between forms */}
             {state === 'Sign Up' ? (
               <p>
                 Already have an Account? &nbsp;

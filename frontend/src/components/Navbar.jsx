@@ -18,7 +18,6 @@ const Navbar = () => {
   const logout = () => {
     setToken(false)
     localStorage.removeItem('token')
-    toast.success('Logout Successful 🎉')
   }
 
   // Handle click outside for profile menu
