@@ -18,6 +18,7 @@ const Navbar = () => {
   const logout = () => {
     setToken(false)
     localStorage.removeItem('token')
+    toast.info('Logged Out.')
   }
 
   // Handle click outside for profile menu
@@ -183,7 +184,7 @@ const Navbar = () => {
           <>
             <button
               onClick={() => handleAuthNavigation('signup')}
-              className='bg-primary border border-primary text-white px-2.5 py-1.5 mr-3 rounded-[3px] font-normal text-xs block sm:hidden active:scale-[96%] transition-transform duration-100 ease-in'
+              className='bg-primary border border-primary text-white px-2.5 py-1.5 mr-3 rounded-[4px] font-normal text-xs block sm:hidden active:scale-[90%] transition-transform duration-100 ease-in select-none'
             >
               Sign Up
             </button>
@@ -194,7 +195,7 @@ const Navbar = () => {
           {/* bar icon */}
           <Menu
             onClick={() => setShowMenu(true)}
-            size={25}
+            size={30}
             className='md:hidden text-primary'
           />
           {/* overlay */}
@@ -208,7 +209,7 @@ const Navbar = () => {
           <div
             className={`menu-container ${
               showMenu
-                ? 'fixed w-full h-fit py-10 px-4 rounded-b-2xl flex motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.53s] motion-ease-spring-snappy'
+                ? 'fixed w-full h-fit py-10 px-2 rounded-b-2xl flex motion-translate-x-in-[0%] motion-translate-y-in-[-10%] motion-duration-[0.53s] motion-ease-spring-snappy'
                 : 'hidden'
             } inset-0 top-0 z-20 overflow-hidden bg-white/90 backdrop-blur-xl flex-col items-center justify-center pt-5 px-2 shadow-xl`}
           >

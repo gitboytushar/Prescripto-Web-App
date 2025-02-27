@@ -1,7 +1,7 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 import { Copyright } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const Footer = () => {
   const navigate = useNavigate()
@@ -54,7 +54,16 @@ const Footer = () => {
             >
               Contact Us
             </li>
-            <li>Privacy Policy</li>
+            <li className='cursor-pointer hover:text-primary hover:underline transition-all duration-200 ease-in'>
+              {/* policy created with razorpay dashboard in live mode */}
+              <NavLink
+                to={
+                  'https://merchant.razorpay.com/policy/PweTRtIOPlC8KZ/privacy'
+                }
+              >
+                Privacy Policy
+              </NavLink>
+            </li>
           </ul>
         </div>
         {/* ---------- right section --------- */}
