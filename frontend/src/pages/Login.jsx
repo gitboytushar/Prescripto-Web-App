@@ -80,12 +80,12 @@ const Login = () => {
           {/* form title */}
           <div className='flex flex-col items-stretch gap-1 w-full text-center'>
             <p className='text-2xl font-semibold'>
-              {state === 'Sign Up' ? 'Create Account' : 'User Login'}
+              {state === 'Sign Up' ? 'Create Account' : 'Welcome Back'}
             </p>
             <p className='text-zinc-500'>
               {state === 'Sign Up'
                 ? 'Sign up to book an appointment.'
-                : 'Welcome back, Log in to get started.'}
+                : 'Log in to get started.'}
             </p>
           </div>
 
@@ -94,7 +94,7 @@ const Login = () => {
             {/* show on create account */}
             {state === 'Sign Up' && (
               <div className='w-full'>
-                <p>Full Name</p>
+                <p>Name</p>
                 <input
                   className='border border-zinc-300 rounded font-normal text-black tracking-wide w-full p-2 mt-0.5'
                   type='text'
@@ -105,7 +105,7 @@ const Login = () => {
               </div>
             )}
             <div className='w-full'>
-              <p>Email</p>
+              <p>Email Id</p>
               <input
                 className='border border-zinc-300 rounded font-normal text-black tracking-wide w-full p-2 mt-0.5'
                 type='email'
@@ -115,7 +115,7 @@ const Login = () => {
               />
             </div>
             <div className='w-full'>
-              <p>{state === 'Sign Up' ? 'Create Password' : 'Password'}</p>
+              <p>{state === 'Sign Up' ? 'Create Password' : 'Your Password'}</p>
               <input
                 className='border border-zinc-300 rounded font-normal text-black tracking-wide w-full p-2 mt-0.5'
                 type='password'

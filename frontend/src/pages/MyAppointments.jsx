@@ -265,7 +265,7 @@ const MyAppointments = () => {
                       <button
                         className={`text-sm tracking-wider min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border border-green-600 rounded cursor-not-allowed bg-green-50 text-green-600 ${
                           !animatedAppointments.has(item._id)
-                            ? 'motion-preset-confetti motion-duration-1500'
+                            ? 'motion-preset-confetti motion-duration-2000'
                             : ''
                         }`}
                         onAnimationEnd={() => {
@@ -291,7 +291,7 @@ const MyAppointments = () => {
                       >
                         <span className='select-none'>
                           {loadingPayment[item._id]
-                            ? 'Opening Razorpay'
+                            ? 'Processing...'
                             : 'Pay Online'}
                         </span>
                         {loadingPayment[item._id] && (
@@ -304,7 +304,7 @@ const MyAppointments = () => {
                         onClick={() => cancelAppointment(item._id)}
                         className={`text-sm text-stone-600 text-center min-w-48 px-2.5 py-2.5 md:px-4 md:py-3 border border-stone-500 rounded transition-all duration-200 ease-in-out ${
                           loadingCancel[item._id]
-                            ? 'opacity-50 cursor-not-allowed flex items-center justify-center gap-3'
+                            ? 'opacity-60 cursor-not-allowed flex items-center justify-center gap-3'
                             : 'hover:border-transparent hover:bg-red-600 hover:text-white active:scale-[90%]'
                         }`}
                         disabled={loadingCancel[item._id]}

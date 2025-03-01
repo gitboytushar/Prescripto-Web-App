@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Doctors from './pages/Doctors'
 import Login from './pages/Login'
 import About from './pages/About'
 import Contact from './pages/Contact'
@@ -14,8 +13,24 @@ import ScrollToTopFloatingButton from './components/ScrollToTopFloatingButton'
 import { ToastContainer } from 'react-toastify'
 import WelcomeLoader from './components/WelcomeLoader'
 
+// Lazy load the Doctors component
+const Doctors = lazy(() => import('./pages/Doctors'))
+
 const App = () => {
   const [showLoader, setShowLoader] = useState(true)
+
+  const loaderComponent = (
+    <div
+      id='welcome-loader'
+      className='fixed inset-0 z-50 transition-opacity duration-500 ease-in-out pointer-events-none'
+      style={{
+        opacity: showLoader ? 1 : 0,
+        backgroundColor: 'white'
+      }}
+    >
+      <WelcomeLoader />
+    </div>
+  )
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,17 +40,7 @@ const App = () => {
 
   return (
     <>
-      {showLoader && (
-        <div
-          className='fixed inset-0 z-50 transition-opacity duration-500 ease-in-out pointer-events-none'
-          style={{
-            opacity: showLoader ? 1 : 0,
-            backgroundColor: 'white'
-          }}
-        >
-          <WelcomeLoader />
-        </div>
-      )}
+      {showLoader && loaderComponent}
       <div className='mx-4 sm:mx-[10%]'>
         <ToastContainer
           theme='light'
@@ -43,17 +48,19 @@ const App = () => {
         />
         <Navbar />
         <ScrollToTopFloatingButton />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/doctors' element={<Doctors />} />
-          <Route path='/doctors/:speciality' element={<Doctors />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/my-profile' element={<MyProfile />} />
-          <Route path='/my-appointments' element={<MyAppointments />} />
-          <Route path='/appointment/:docId' element={<Appointment />} />
-        </Routes>
+        <Suspense fallback={loaderComponent}>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/doctors' element={<Doctors />} />
+            <Route path='/doctors/:speciality' element={<Doctors />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/my-profile' element={<MyProfile />} />
+            <Route path='/my-appointments' element={<MyAppointments />} />
+            <Route path='/appointment/:docId' element={<Appointment />} />
+          </Routes>
+        </Suspense>
         <Footer />
       </div>
     </>
