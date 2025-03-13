@@ -238,6 +238,7 @@ const MyProfile = () => {
                         }
                         value={userData.gender}
                       >
+                        <option value='Not Selected'>Select</option>
                         <option value='Male'>Male</option>
                         <option value='Female'>Female</option>
                         <option value='Other'>Other</option>
@@ -249,7 +250,7 @@ const MyProfile = () => {
                 </div>
 
                 <div className='flex items-center gap-2 p-1 text-sm md:text-base'>
-                  <p className='font-medium min-w-fit'>Birthday:</p>
+                  <p className='font-medium min-w-fit'>Date of Birth:</p>
                   <div className='w-full'>
                     {isEdit ? (
                       <input
